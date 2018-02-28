@@ -1,0 +1,361 @@
+<div class="page myinfo" ms-attr-data-page="{{pageName}}" ms-controller="myinfo">
+    <div class="box box_lose box_pd cl" ms-class="isPreview:isPreview">
+        <!-- 浮动进度栏 -->
+        <div ms-if="!isPreview" class="pa top_bar" ms-include-src="'./controller/publics/top_bar.html'" >
+        </div>
+        <!-- 项目信息 -->
+        <div class="baseinfo info_myinfo">
+            <div class="row info_base">
+                <div class="l">
+                    <div class="fl imgbox">
+                        <div id="upheadBtn" class="no"><span class="ver-mid"></span><img ms-attr-src="base.headimg" alt=""></div>
+                    </div>
+                    <ul class="fr">
+                        <li class="if_base_profile one" id="basebox">
+                            <div class="tit">
+                                <i class="line_l"></i>
+                                <span ms-text="base.nickname"></span>
+                                <i ms-attr-class="'sex s'+base.gender" ms-if="base.gender"></i>
+                                <em ms-text="base.status_msg"></em>
+                            </div>
+
+                            <div class="tx">
+                                <span ms-text="base.city" ms-visible="!!base.city"></span>
+                                <span ms-text="base.utype_v" ms-visible="!!base.utype&&base.utype!='0'"></span>
+                                <span ms-visible="!!base.bizscope" ms-repeat="base.bizscope_arr" ms-text="$val" ></span>
+                                <span ms-text="base.expyear_v" ms-visible="!!base.expyear&&base.expyear!='0'"></span>
+                            </div>
+                        </li>
+                        <li class="if_base_aboutme" id="base_aboutme">
+                            <div class="tit">
+                                <i class="line_l"></i>
+                                <span>关于我</span>
+                            </div>
+                            <div class="tx">
+                                <p ms-html="base.aboutme"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="r">
+                    <a ms-if="!isPreview" href="#!/edit" class="btn pvwInfoBtn">编辑个人主页</a>
+                    <div class="otherInfo" ms-include-src="'./controller/publics/grade.html'" data-include-replace="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row ed_add">
+                <!-- 代表作品 -->
+                <div class="form_content profile_works" id="profile_works">
+                    <div class="box">
+                        <div class="tit"><strong>代表作品</strong></div>
+                    </div>
+                    <div class="product_show works_show">
+                        <div class="work_box" ms-repeat="work">
+                            <div class="product_item">
+                                <dl>
+                                    <dt><img alt="作品图片" ms-attr-src="el.wpic"></dt>
+                                    <dd>
+                                        <div class="title">
+                                            <h3>{{el.wname}}<span><i class="dot">•</i>{{el.wduty}}</span></h3></div>
+                                        <div class="show_product_desc" ms-html="el.wdesc"></div>
+                                        <a class="quick_link" target="_blank" rel="nofollow" ms-attr-href="el.wlink">作品链接</a>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 公司信息 -->
+                <div class="form_content profile_cpinfo" ms-if="editState.isTeamState" id="profile_cpinfo">
+                    <div class="box">
+                        <div class="tit"><strong>公司信息</strong></div>
+                        <div class="form_item company_show" ms-if="company">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>公司全称</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="company.cname"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>公司规模及人数</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="company.scale_v"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>公司地址</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="company.addr"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>邮编</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="company.zipcode"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>公司电话</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="company.phonenum"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt class="noic"><i class="ic"></i>公司网址</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="company.website"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系人</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="company.contact"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系方式</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="company.mobile"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>QQ</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="company.qq"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>E-MAIL</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="company.email"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 个人信息 -->
+                <div class="form_content profile_cpinfo" ms-if="!editState.isTeamState" id="profile_myinfo">
+                    <div class="box">
+                        <div class="tit"><strong>联系信息</strong></div>
+                        <div class="form_item personal_show" ms-if="personal">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>个人地址</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="personal.addr"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>邮编</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="personal.zipcode"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系人</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="personal.contact"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系方式</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="personal.mobile"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>QQ</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="personal.qq"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>E-MAIL</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="personal.email"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="more">
+                                    <dt><i class="ic"></i>证件上传</dt>
+                                    <dd>
+                                        <div class="s idpic">
+                                            <div class="upbtn fl">
+                                                <img ms-attr-src="personal.idpica?personal.idpica:''">
+                                            </div>
+                                            <div class="upbtn fr">
+                                                <img ms-attr-src="personal.idpicb?personal.idpicb:''">
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 工商登记 -->
+                <div class="form_content profile_bizreg" ms-if="editState.isTeamState" id="profile_bizreg">
+                    <div class="box">
+                        <div class="tit"><strong>工商登记</strong></div>
+                        <div class="form_item bizreg_show" ms-if="bizreg">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>公司名称</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="bizreg.bname"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>统一社会信用代码/CI</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="bizreg.regnum"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>营业/CI执照有效期</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="bizreg.licdate"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>法定代表人</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="bizreg.lperson"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>注册地</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="bizreg.regaddr"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>注册资本金</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="bizreg.regcaptal"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="more">
+                                    <dt><i class="ic"></i>营业/CI执照复印件</dt>
+                                    <dd>
+                                        <div class="s licpic">
+                                            <div class="upbtn">
+                                                <img ms-attr-src="bizreg.licpic">
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="more">
+                                    <dt><i class="ic"></i>银行开户许可证</dt>
+                                    <dd>
+                                        <div class="s bankpic">
+                                            <div class="upbtn" >
+                                                <img ms-attr-src="bizreg.bankpic">
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 付款信息 -->
+                <div class="form_content profile_payinfo" id="profile_payinfo">
+                    <div class="box">
+                        <div class="tit"><strong>付款信息</strong></div>
+                        <div class="form_item payinfo_show" ms-if="payinfo" >
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>账户名</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="payinfo.accname"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>开户银行</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="payinfo.bank"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>开户支行</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="payinfo.branch"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>账户账号</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="payinfo.accnum"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>银行所在地</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="payinfo.city"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p style="padding: 10px 20px;font-size: 14px;color: #676767;text-align: center;">作为巨人网络的供应商伙伴，贵公司应坚决遵守并督促本公司员工遵守有关反商业贿赂的法律法规。<br>如您发现巨人网络的雇员有违法商业道德或法律法规的行为，请联系我们的反贿赂举报邮箱：ac@ztgame.com<br><br>我承诺，以上内容均为我公司真实信息。</p>
+    </div>
+</div>

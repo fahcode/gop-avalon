@@ -1,0 +1,16 @@
+
+<div class="bar_con">
+    <p class="fl t">个人主页完整度：</p>
+    <ul class="fl">
+        <li ms-class="on:editPlan.headImg"><i></i><a href="javascript:;" ms-click="events.goWeizhi('upheadBtn')">头像</a><span>&#183;&#183;&#183;</span></li>
+        <li ms-class="on:editPlan.forme"><i></i><a href="javascript:;" ms-click="events.goWeizhi('base_aboutme')">关于我</a><span>&#183;&#183;&#183;</span></li>
+        <li ms-class="on:editPlan.base"><i></i><a href="javascript:;" ms-click="events.goWeizhi('basebox')">基本信息</a><span>&#183;&#183;&#183;</span></li>
+        <li class="" ms-class-2="on:editPlan.works"><i></i><a href="javascript:;" ms-click="events.goWeizhi('profile_works')">代表作品</a><span>&#183;&#183;&#183;</span></li>
+        <li class="" ms-visible="editState.isTeamState" ms-class-2="on:editPlan.comp"><i></i><a href="javascript:;" ms-click="events.goWeizhi('profile_cpinfo')">公司信息</a><span>&#183;&#183;&#183;</span></li>
+        <li class="" ms-visible="!editState.isTeamState" ms-class-2="on:editPlan.myf"><i></i><a href="javascript:;" ms-click="events.goWeizhi('profile_myinfo')">联系信息</a><span>&#183;&#183;&#183;</span></li>
+        <li ms-visible="editState.isTeamState" class="" ms-class-2="on:editPlan.biz"><i></i><a href="javascript:;" ms-click="events.goWeizhi('profile_bizreg')">工商登记</a><span>&#183;&#183;&#183;</span></li>
+        <li class="" ms-class-2="on:editPlan.pay"><i></i><a href="javascript:;" ms-click="events.goWeizhi('profile_payinfo')">付款信息</a></li>
+        <li class="explain" ><a href="../../images/GOP外包商注册流程.xlsx" download="GOP外包商注册流程.xlsx" title="GOP外包商注册流程"><i class="book_ic"></i>填写帮助</a></li>
+    </ul>
+    <a href="javascript:;" ms-if="editPlan.isShowSubmit" class="fr btn subBtn" ms-class-2="on:(editPlan.isSubmit && userData.shStatus!=1)" ms-click="events.submitFormSure(editPlan.isSubmit)">提交审核</a>
+</div>

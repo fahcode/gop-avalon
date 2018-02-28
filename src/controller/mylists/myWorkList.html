@@ -1,0 +1,83 @@
+<!-- 我的工作列表 -->
+<div class="listcon myWorkList" ms-controller="myWorkList" >
+    <h4>工作列表</h4>
+    <div class="searchView">
+        <dl>
+            <dt>项目名称：</dt>
+            <dd class="bd_n">
+                <input type="text" placeholder="需求主题" ms-duplex="searchInfo.name">
+            </dd>
+        </dl>
+        <dl class="more">
+            <dt>创建时间：</dt>
+            <dd>
+                <div class="fl slc">
+                    <!-- <input type="text" id="myBidList_cd1"> -->
+                    <!-- <select name="" id="myBidList_cd1" ms-duplex="searchInfo.year"></select> -->
+                    <div class="select" st="1" ms-click="mylists.events.chkSelect(false)">
+                        <p class="selt_v" >{{times.dfYear +'年'}}</p>
+                        <ul class="ul_sele">
+                            <div class="hid_box">
+                            <li ms-repeat="times.year" ms-click="mylists.events.selectv(el,'年', 'work')">{{el+'年'}}</li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fl slc">
+                    <!-- <input type="text" id="myBidList_cd2"> -->
+                    <!-- <select name="" id="myBidList_cd2" ms-duplex="searchInfo.month"></select> -->
+                    <div class="select" st="1" ms-click="mylists.events.chkSelect(false)">
+                        <p class="selt_v">{{times.dfMonth +'月'}}</p>
+                        <ul class="ul_sele">
+                            <div class="hid_box">
+                            <li ms-repeat="times.month" ms-click="mylists.events.selectv(el,'月', 'work')">{{el + '月'}}</li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                <a class="searchBtn" href="javascript:;" ms-click="events.search()">搜索</a>
+            </dd>
+        </dl>
+    </div>
+    <div class="list_table">
+        <div class="cn">
+            <table>
+                <tbody>
+                    <tr class="hd">
+                        <th class="i1">编号</th>
+                        <th class="i2">需求分类</th>
+                        <th class="i3">需求主题</th>
+                        <th class="i4">完成时间</th>
+                        <th class="i5">当前状态</th>
+                        <th class="i6">总价</th>
+                        <th class="i7">操作</th>
+                        <th class="i8">综合评分</th>
+                        <th class="i9 last">完成状态</th>
+                    </tr>
+                    <tr ms-repeat="plist">
+                        <td class="i1" ms-text="el.flow_order_id"></td>
+                        <td class="i2">{{el.cid1_name + '-' + el.cid2_name + '-' + el.cid3_name}}</td>
+                        <td class="i3" ms-text="el.title"></td>
+                        <td class="i4" ms-text="el.exptime"></td>
+                        <td class="i5" ms-text="el.node_name"></td>
+                        <td class="i6" ms-text="el.money"></td>
+                        <td class="i7" ms-visible="el.opt!='发起验收'"><a ms-class-0="button" ms-attr-href="#!/flow/{{el.flow_order_id}}/" target="_blank" ms-class-1="la: el.opt!='查看'" ms-class-2="hu: (el.opt=='查看'&&el.status=='中止')" ms-text="el.opt"></a></td>
+                        <td class="i7" ms-visible="el.opt=='发起验收'">
+                            <a class="button la" ms-attr-href="#!/flow/{{el.flow_order_id}}/1" target="_blank">过程验收</a>
+                            <a class="button la" ms-attr-href="#!/flow/{{el.flow_order_id}}/2" target="_blank">最终验收</a>
+                        </td>
+                        <td class="i8" >{{!!el.score? el.score: "无"}}</td>
+                        <td class="i9" ms-text="el.status"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pageinfo" >
+            <a ms-show="pages>5" href="javascript:void(0)" ms-click="events.dopages('pre')" >&lt;&lt;</a>
+
+            <a ms-repeat-el="showpage" ms-class="cur:el==cur" href="javascript:void(0)" ms-text="1+el" ms-click="events.dopages(el)"></a>
+
+            <a ms-show="pages>5" href="javascript:void(0)" ms-click="events.dopages('next')">&gt;&gt;</a>
+        </div>
+    </div>
+</div>

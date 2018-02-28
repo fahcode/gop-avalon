@@ -1,0 +1,52 @@
+{
+  "name": "gmd",
+  "version": "1.0.0",
+  "description": "gmd front",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "liupeng",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.18.11",
+    "browserify": "^14.3.0",
+    "browserify-css": "^0.10.1",
+    "del": "^3.0.0",
+    "es6-promise": "^4.1.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-cache": "^0.4.6",
+    "gulp-cachebust": "0.0.6",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.2.0",
+    "gulp-make-css-url-version": "0.0.13",
+    "gulp-modify-css-urls": "^0.2.2",
+    "gulp-requirejs": "^1.0.0-rc2",
+    "gulp-rev": "^8.0.0",
+    "gulp-rev-collector": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-smushit": "^1.2.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "html-browserify": "^0.0.6",
+    "http-proxy-middleware": "^0.17.4",
+    "imagemin-jpeg-recompress": "^5.1.0",
+    "imagemin-pngquant": "^5.0.1",
+    "imgurify": "^2.0.0",
+    "jquery": "^1.9.1",
+    "merge-stream": "^1.0.1",
+    "pathmodify": "^0.5.0",
+    "run-sequence": "^2.1.0",
+    "style-loader": "^0.16.1",
+    "vinyl-source-stream": "^1.1.0",
+    "yargs": "^8.0.2"
+  },
+  "dependencies": {
+    "amd-optimize": "^0.6.1",
+    "del": "^3.0.0"
+  }
+}

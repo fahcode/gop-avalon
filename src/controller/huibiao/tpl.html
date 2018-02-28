@@ -1,0 +1,426 @@
+<div class="page mylists" ms-attr-data-page="{{pageName}}" ms-controller="huibiao">
+    <div class="box box_lose cl">
+        <!-- 项目信息 -->
+        <div class="baseinfo info_myinfo">
+            <div class="row info_base">
+                <div class="l">
+                    <div class="fl imgbox">
+                        <div id="upheadBtn" class="no"><img ms-attr-src="userInfo.headimg" alt=""></div>
+                    </div>
+                    <ul class="fr">
+                        <li class="if_base_profile one" id="basebox">
+                            <div class="tit">
+                                <i class="line_l"></i>
+                                <span ms-text="userInfo.nickname"></span>
+                                <i ms-attr-class="'sex s'+userInfo.gender" ms-if="userInfo.gender"></i>
+                                <em ms-text="userInfo.status_msg"></em>
+                            </div>
+
+                            <div class="tx">
+                                <span ms-text="userInfo.city" ms-visible="userInfo.city"></span>
+                                <span ms-text="userInfo.utype" ms-visible="userInfo.utype"></span>
+                                <span ms-visible="userInfo.bizscope" ms-repeat="userInfo.bizscope" ms-text="el" ></span>
+                                <span ms-text="userInfo.expyear" ms-visible="userInfo.expyear"></span>
+                            </div>
+                        </li>
+                        <li class="if_base_aboutme" id="base_aboutme">
+                            <div class="tit">
+                                <i class="line_l"></i>
+                                <span>关于我</span>
+                            </div>
+                            <div class="tx">
+                                <p ms-html="userInfo.aboutme"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="r">
+                    <a ms-attr-href="'#!/myinfo/'+userInfo.ubid" class="btn pvwInfoBtn">浏览个人主页</a>
+                    <div class="otherInfo" ms-include-src="'./controller/publics/grade.html'" data-include-replace="true">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- 列表 -->
+        <div class="mylt_lists">
+            <div class="tabBtns">
+                <ul>
+                    <li class="on"><a href="javascript:;">我的订单</a></li>
+                </ul>
+            </div>
+            <div class="tabCons tcbox">
+                <!-- 回标详情页 -->
+                <div class="ml_details" id="ml_details">
+                        <div class="row dt_info">
+                            <h4>1.标书内容</h4>
+                            <div class="dt_from dt_if_from">
+                                <div class="form_show_view">
+                                    <dl class="hd">
+                                        <dt>> {{infos.title}}</dt>
+                                        <dd>
+                                            <!-- <p class="tx">{{infos.contact_realname}}  创建于 {{infos.pubtime}}</p> -->
+                                            <div class="subdl">
+                                                <!-- <span class="dt">类型：</span><span class="dd" ms-text="infos.type_text"></span> -->
+                                                <span class="dt">项目：</span>
+                                                <span class="dd" ms-visible="infos.mult==1">单游戏项目 -{{infos.gamename}}</span>
+                                                <span class="dd" ms-visible="infos.mult==2">多游戏项目</span>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl ms-repeat="infos.content">
+                                        <dt><i ms-attr-class="'ic_'+el.id"></i>{{el.name}}：</dt>
+                                        <dd><p class="rdb">{{el.value | htmlwrap | html}}</p></dd>
+                                    </dl>
+                                    <dl class="mo">
+                                        <dt><i class="ic_time"></i>收标时间：</dt>
+                                        <dd><span ms-text="infos.coltime"></span></dd>
+                                        <dt><i class="ic_time"></i>答疑时间：</dt>
+                                        <dd><span ms-text="infos.faqtime"></span></dd>
+                                        <dt><i class="ic_way"></i>回标方式：</dt>
+                                        <dd><span>线上回标，请登录 gop.ztgame.com</span></dd>
+                                    </dl>
+                                    <!-- <dl>
+                                        <dt><i class="ic_bell"></i>通知信息：</dt>
+                                        <dd>
+                                            <p class="chk"><span class="ti">E-mail:</span>{{infos.email_content | htmlwrap | html}}</p>
+                                            <p class="chk"><span class="ti">短消息:</span>{{infos.sms_content | htmlwrap | html}}</p>
+                                        </dd>
+                                    </dl> -->
+                                    <dl>
+                                        <dt><i class="ic_file"></i>附件：</dt>
+                                        <dd ms-each="files">
+                                            <a ms-attr-href="el.fpath" ms-attr-download="el.fname" class="u_file" target="_blank">{{el.fname}}<span>({{el.fsize}})</span></a>
+                                        </dd>
+                                    </dl>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row dt_huibiao" ms-visible="showPop">
+                            <div class="dt_from dt_hb_from">
+                                <button class="closePop" ms-click="events.targePop(false)"></button>
+                                <div class="input_view">
+                                    <dl>
+                                        <dt><span><i class="mstic"></i>公司名称：</span></dt>
+                                        <dd><span ms-text="userInfo.nickname">A公司</span></dd>
+                                    </dl>
+                                    <dl ms-if="htype==1 || htype==2">
+                                        <dt><span><i class="mstic"></i>媒体名称：</span></dt>
+                                        <dd class="noh">
+                                            <div class="b select" st="1" ms-click="im.chkSelect(false)">
+                                                <p class="selt_v">
+                                                    <b style="" ms-text="editData.media_name"></b>
+                                                    <b ms-visible="editData.media_name==''">请选择媒体名称</b>
+                                                </p>
+                                                <i class="ic"></i>
+                                                <ul class="ul_sele" style="display: none;" ms-each-el="infos.medias">
+                                                    <li class="op" ms-click="events.selected('medias', el.media_id, el.media_name)" ms-text="el.media_name"></li>
+                                                </ul>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl ms-if="htype==1">
+                                        <dt><span><i class="mstic"></i>适应版本：</span></dt>
+                                        <dd class="radio_input">
+                                            <div class="radio" ms-click="events.selectRadio('ad_platform', 'IOS')"><i ms-class="on:editData.ad_platform=='IOS'"></i><span>IOS</span></div>
+                                            <div class="radio" ms-click="events.selectRadio('ad_platform', '安卓')"><i ms-class="on:editData.ad_platform=='安卓'"></i><span>安卓</span></div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="lw" ms-if="htype!=3">
+                                        <dt><span><i class="mstic"></i>合作模式：</span></dt>
+                                        <dd class="radio_input moshi_radio">
+                                            <div class="radio" ms-click="events.selectRadio('ctype', 'CPT')"><i ms-class="on:editData.ctype=='CPT'"></i><span>CPT</span></div>
+                                            <div ms-visible="htype!=2" class="radio" ms-click="events.selectRadio('ctype', 'CPI')"><i ms-class="on:editData.ctype=='CPI'"></i><span>CPI</span></div>
+                                            <div class="radio" ms-click="events.selectRadio('ctype', 'CPA')"><i ms-class="on:editData.ctype=='CPA'"></i><span>CPA</span></div>
+                                            <div class="radio" ms-click="events.selectRadio('ctype', 'CPC')"><i ms-class="on:editData.ctype=='CPC'"></i><span>CPC</span></div>
+                                            <div class="radio" ms-click="events.selectRadio('ctype', 'CPM')"><i ms-class="on:editData.ctype=='CPM'"></i><span>CPM</span></div>
+                                            <div class="radio" ms-click="events.selectRadio('ctype', '账户充返')"><i ms-class="on:editData.ctype=='账户充返'"></i><span>账户充返</span></div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="lw" ms-if="htype==3">
+                                        <dt><span><i class="mstic"></i>合作模式：</span></dt>
+                                        <dd class="radio_input">
+                                            <div class="radio" ms-click="events.selectRadio('ctype', '赛事执行')"><i ms-class="on:editData.ctype=='赛事执行'"></i><span>赛事执行</span></div>
+                                            <div class="radio" ms-click="events.selectRadio('ctype', '赛事品牌共享')"><i ms-class="on:editData.ctype=='赛事品牌共享'"></i><span>赛事品牌共享</span></div>
+                                        </dd>
+                                    </dl>
+                                    <dl ms-if="htype!=3">
+                                        <dt><span><i class="mstic"></i>主要广告形式：</span></dt>
+                                        <dd class="noh"><input type="text" ms-duplex="editData.ad_style" ms-attr-placeholder="htype==2? '例:百度品专，若折扣不同可新增': '例 banner图'">
+                                            <a href="javascript:;" class="tips" ms-visible="editData.ctype=='CPT'">
+                                                <p class="t">如媒体主要广告形式刊例上都可见，请直接填写按2018年刊例价执行，如媒体主要广告形式有特殊形式，可填写主要的。如广告形式是关键字或者信息流，直接填写文字即可。</p>
+                                                <p class="floatbox">如媒体主要广告形式刊例上都可见，请直接填写按2018年刊例价执行，如媒体主要广告形式有特殊形式，可填写主要的。如广告形式是关键字或者信息流，直接填写文字即可。</p>
+                                            </a>
+                                        </dd>
+                                    </dl>
+                                    <dl class="long" ms-if="editData.ctype!='CPT'&&editData.ctype!='账户充返'">
+                                        <dt><span><i class="mstic"></i>{{htype!=3?"单价：":"价格："}}</span></dt>
+                                        <!-- <dd><input type="text" ms-duplex="editData.price"><em>元</em></dd> -->
+                                        <dd class="noh"><textarea name="" rows="1" ms-duplex="editData.price"></textarea>
+                                            <a href="javascript:;" class="tips" >
+                                                <p class="t">CPT购买请以附件形式提供刊例，并且保证为当前可执行刊例价格（含税价）</p>
+                                                <p class="floatbox">CPT购买请以附件形式提供刊例，并且保证为当前可执行刊例价格（含税价）</p>
+                                            </a>
+                                        </dd>
+                                    </dl>
+                                    <dl class="long" ms-if="htype!=3">
+                                        <dt><span><i class="mstic"></i>折扣：</span></dt>
+                                        <dd class="noh"><textarea name="" rows="1" ms-duplex="editData.discount"></textarea>
+                                            <a href="javascript:;" class="tips" >
+                                                <p class="t">此处可文字表述，如媒体涉及到多广告形式，多折扣，直接文字表述即可，如媒体单一折扣，直接填写数字即可。</p>
+                                                <p class="floatbox">此处可文字表述，如媒体涉及到多广告形式，多折扣，直接文字表述即可，如媒体单一折扣，直接填写数字即可。</p>
+                                            </a>
+                                        </dd>
+                                    </dl>
+                                    <dl class="long" ms-if="htype!=3&&editData.ctype!='账户充返'">
+                                        <dt><span><i class="mstic"></i>配送：</span></dt>
+                                        <dd class="noh"><textarea name="" rows="3" placeholder="例 1:1" ms-duplex="editData.distribution"></textarea>
+                                            <a href="javascript:;" class="tips" >
+                                                <p class="t">此处可文字表述，如媒体涉及到不同广告形式，不同配送，直接文字表述即可，如媒体单一配送，直接填写数字表述即可。</p>
+                                                <p class="floatbox">此处可文字表述，如媒体涉及到不同广告形式，不同配送，直接文字表述即可，如媒体单一配送，直接填写数字表述即可。</p>
+                                            </a>
+                                        </dd>
+                                    </dl>
+                                    <dl ms-if="htype!=3">
+                                        <dt><span><i class="mstic"></i>账期：</span></dt>
+                                        <!--  <dd><input type="text" ms-duplex="editData.accperiod"><em>月</em></dd> -->
+                                        <dd class="noh">
+                                            <div class="b select" st="1" ms-click="im.chkSelect(false)">
+                                                <p class="selt_v">
+                                                    <b style="" ms-text="editData.accperiod"></b>
+                                                    <b ms-visible="editData.accperiod==''">请选择账期</b>
+                                                </p>
+                                                <i class="ic"></i>
+                                                <ul ms-if="htype==1" class="ul_sele" style="display: none;">
+                                                    <li class="op" ms-click="events.selected('accperiod', '2个月')">2个月</li>
+                                                    <li class="op" ms-click="events.selected('accperiod', '3个月')">3个月</li>
+                                                </ul>
+                                                <ul ms-if="htype==2" class="ul_sele" style="display: none;">
+                                                    <li class="op" ms-click="events.selected('accperiod', '2个月')">2个月</li>
+                                                    <li class="op" ms-click="events.selected('accperiod', '3个月')">3个月</li>
+                                                    <li class="op" ms-click="events.selected('accperiod', '4个月')">4个月</li>
+                                                    <li class="op" ms-click="events.selected('accperiod', '5个月')">5个月</li>
+                                                    <li class="op" ms-click="events.selected('accperiod', '6个月')">6个月</li>
+                                                </ul>
+                                            </div>
+                                            <a href="javascript:;" class="tips" >
+                                                <p class="t">巨人网络规定手游媒体账期3个月以内，端游媒体6个月以内，供应商可选择可承受的账期即可</p>
+                                                <p class="floatbox">巨人网络规定手游媒体账期3个月以内，端游媒体6个月以内，供应商可选择可承受的账期即可</p>
+                                            </a>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><span><i class="mstic"></i>发票类型：</span></dt>
+                                        <dd class="tti">
+                                            <span ms-visible="htype==3">增值税专用发票</span>
+                                            <span ms-visible="htype!=3">增值税普通发票</span>
+                                        </dd>
+                                    </dl>
+                                    <dl >
+                                        <dt><span><i class="mstic"></i>发票内容：</span></dt>
+                                        <dd class="noh">
+                                            <div class="b select" st="1" ms-click="im.chkSelect(false)">
+                                                <p class="selt_v">
+                                                    <b style="" ms-text="editData.invoice_content"></b>
+                                                    <b ms-visible="editData.invoice_content==''">请选择发票内容</b>
+                                                </p>
+                                                <i class="ic"></i>
+                                                <ul class="ul_sele" style="display: none;">
+                                                    <li ms-if="htype!=3" class="op" ms-click="events.selected('invoice_content', null, '广告费')">广告费</li>
+                                                    <!-- <li ms-if="htype!=3" class="op" ms-click="events.selected('invoice_content', null, '信息费')">信息费</li>
+                                                    <li ms-if="htype!=3" class="op" ms-click="events.selected('invoice_content', null, '服务费')">服务费</li> -->
+
+                                                    <li ms-if="htype==3" class="op" ms-click="events.selected('invoice_content', null, '赞助费')">赞助费</li>
+                                                    <li ms-if="htype==3" class="op" ms-click="events.selected('invoice_content', null, '宣传费')">宣传费</li>
+                                                    <li ms-if="htype==3" class="op" ms-click="events.selected('invoice_content', null, '信息服务费')">信息服务费</li>
+                                                </ul>
+                                            </div>
+                                            <a href="javascript:;" class="tips" >
+                                                <p class="t">其他特殊情况，请在备注中说明</p>
+                                                <p class="floatbox">其他特殊情况，请在备注中说明</p>
+                                            </a>
+                                        </dd>
+                                    </dl>
+                                    <dl ms-if="htype==1">
+                                        <dt><span><i class="mstic"></i>是否对接后台：</span></dt>
+                                        <dd class="radio_input">
+                                            <div class="radio"  ms-click="events.selectRadio('docking', 1)"><i ms-class="on:editData.docking==1"></i><span>需要</span></div>
+                                            <div class="radio"  ms-click="events.selectRadio('docking', 0)"><i ms-class="on:editData.docking==0"></i><span>不需要</span></div>
+                                        </dd>
+                                    </dl>
+                                    <dl ms-visible="editData.docking==1">
+                                        <dt><span><i class="mstic"></i>对接后台选择：</span></dt>
+                                        <dd class="radio_input">
+                                            <div class="radio" ms-click="events.selectRadio('docking_type', 'SDK')"><i  ms-class="on:editData.docking_type=='SDK'"></i><span>SDK</span></div>
+                                            <div class="radio" ms-click="events.selectRadio('docking_type', 'API对接')"><i  ms-class="on:editData.docking_type=='API对接'"></i><span>API对接</span></div>
+                                        </dd>
+                                    </dl>
+                                    <dl ms-if="htype==1">
+                                        <dt><span>数据核对方式：</span></dt>
+                                        <dd><input type="text" ms-duplex="editData.data_check"></dd>
+                                    </dl>
+                                    <dl ms-visible="htype==3">
+                                        <dt><span><i class="mstic"></i>招标书附件：</span></dt>
+                                        <dd class="upload_input">
+                                            <div class="uploadFile_box">
+                                                <button class="upBtn" id="bidfiles_upBtn">上传</button>
+                                                <p class="tips">支持office文件格式和pdf，最大不超过5M。</p>
+                                            </div>
+                                            <div class="upFiles">
+                                                <div class="u_file u_fileb" ms-repeat="editData.bidfiles.showList"><a class="u_file"  ms-text="el.fname" ms-attr-href="el.fpath" ms-attr-download="el.fname" target="_blank"></a><i class="dele" ms-click="events.delectFile('bidfiles', el.fpath, $index)"></i></div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><span><i class="mstic" ms-visible="editData.ctype=='CPT'"></i>{{editData.ctype=='CPT'?'刊例价格附件：':'相关附件'}}</span></dt>
+                                        <dd class="upload_input noh">
+                                            
+                                            <div class="uploadFile_box">
+                                                <button class="upBtn fileUpBtn" id="otherfiles_upBtn">上传</button>
+                                                <a href="javascript:;" class="tips" ms-visible="editData.ctype!='CPT'"><p class="txt">支持office文件格式和pdf，最大不超过5M。</p></a>
+                                                <a href="javascript:;" class="tips" ms-visible="editData.ctype=='CPT'">
+                                                    <p class="t">请提供媒体对外2018年刊例价（均为含税价格）、如媒体无对外刊例价（比如：品专、贴吧、导航）可上传媒体2018年销售政策或者供应商增值服务说明。附件支持office文件格式和pdf，最大不超过5M。</p>
+                                                    <p class="floatbox">请提供媒体对外2018年刊例价（均为含税价格）、如媒体无对外刊例价（比如：品专、贴吧、导航）可上传媒体2018年销售政策或者供应商增值服务说明。附件支持office文件格式和pdf，最大不超过5M。</p>
+                                                </a>
+                                            </div>
+                                            <div class="upFiles">
+                                                <div class="u_file u_fileb" ms-repeat="editData.otherfiles.showList"><a class="u_file"  ms-text="el.fname" ms-attr-href="el.fpath" ms-attr-download="el.fname" target="_blank"></a><i class="dele" ms-click="events.delectFile('otherfiles', el.fpath, $index)"></i></div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="long">
+                                        <dt><span>备注：</span></dt>
+                                        <dd class="noh"><textarea name="" rows="1" ms-duplex="editData.remark"></textarea>
+                                            <a href="javascript:;" class="tips" >
+                                                <p class="t">如有其他补充，可填写</p>
+                                                <p class="floatbox">如有其他补充，可填写</p>
+                                            </a>
+                                        </dd>
+                                    </dl>
+                                    <div class="btns">
+                                        <button class="sbtBtn" ms-click="events.submitHuibiao()" ms-text="!!editData.id? '修改': '创建'"></button>
+                                        <button ms-visible="!!!editData.id" class="sbtBtn next_btn" ms-click="events.submitHuibiao('next')">+ 创建并继续</button>
+                                        <button ms-visible="!!editData.id" class="sbtBtn cancel_btn" ms-click="events.cancelSubmit()">取消</button>
+                                        <a href="javascript:;" class="tips">
+                                            <p class="t">报价信息创建完毕请点击创建；如需添加多条请点击创建并继续。</p>
+                                            <p class="floatbox">报价信息创建完毕请点击创建；如需添加多条请点击创建并继续。</p>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                            </div></div>
+                        <div ms-attr-class="'row hb_list c'+ htype">
+                            <h4>2.回标（可添加多条信息）</h4>
+                            <table cellspacing="0">
+                                <tr class="hd">
+                                    <td ms-if="htype!=3" class="s1"><span>媒体名称</span></td>
+                                    <td ms-if="htype!=3" class="s2"><span>适应版本</span></td>
+                                    <td ms-if="htype!=2" class="s3"><span>合作模式</span></td>
+                                    <td ms-if="htype==1" class="s4"><span>广告形式</span></td>
+                                    <td class="s5"><span>价格</span></td>
+                                    <td ms-if="htype!=3" class="s6"><span>折扣</span></td>
+                                    <td ms-if="htype!=3" class="s7"><span>配送</span></td>
+                                    <td ms-if="htype!=3" class="s8"><span>账期</span></td>
+                                    <td class="s9"><span>发票类型</span></td>
+                                    <td ms-if="htype==1" class="s10"><span>对接</span></td>
+                                    <td ms-if="htype==1" class="s11"><span>核对</span></td>
+                                    <td ms-if="htype==3" class="s13"><span>标书附件</span></td>
+                                    <td class="s14"><span>相关附件</span></td>
+                                    <td class="s12"><span>{{(infos.bstatus!=1)?"操作": "状态"}}</span></td>
+                                </tr>
+                                    
+                                <!-- <ul class="hblt_box"> -->
+                                    <tr ms-repeat="replys" ms-class-1="first:$index==0" >
+                                        <td ms-if="htype!=3" class="s1"><span>{{el.media_name | wutxt}}</span></td>
+                                        <td ms-if="htype!=3" class="s2"><span>{{el.ad_platform | wutxt}}</span></td>
+                                        <td ms-if="htype!=2" class="s3"><span>{{el.ctype | wutxt}}</span></td>
+                                        <td ms-if="htype==1" class="s4"><span>{{el.ad_style | wutxt}}</span></td>
+                                        <td class="s5"><span>{{el.price | wutxt}}</span></td>
+                                        <td ms-if="htype!=3" class="s6"><span>{{el.discount}}</span></td>
+                                        <td ms-if="htype!=3" class="s7"><span>{{el.distribution | wutxt}}</span></td>
+                                        <td ms-if="htype!=3" class="s8"><span>{{el.accperiod | wutxt}}</span></td>
+                                        <td class="s9"><span>{{el.invoice_type | wutxt}}</span></td>
+                                        <td ms-if="htype==1" class="s10"><span>{{el.docking_type | wutxt}}</span></td>
+                                        <td ms-if="htype==1" class="s11"><span>{{el.data_check | wutxt}}</span></td>
+
+                                        <td ms-if="htype==3" class="s13">
+                                            <p ms-if="!!!el.bidfiles">/</p>
+                                            <a class="u_file" target="_blank" ms-if="!!el.bidfiles" ms-repeat-sel="el.bidfiles" ms-attr-href="sel.fpath" ms-attr-download="sel.fname" ms-attr-title="sel.fname">{{sel.fname | wutxt}}</a>
+                                        </td>
+                                        <td class="s14">
+                                            <p  ms-if="!!!el.otherfiles">/</p>
+                                            <a class="u_file" target="_blank" ms-if="!!el.otherfiles" ms-repeat-sel="el.otherfiles" ms-attr-href="sel.fpath" ms-attr-download="sel.fname" ms-attr-title="sel.fname">{{sel.fname | wutxt}}</a>
+                                        </td>
+                                        <td class="s12" ms-visible="infos.bstatus!=1">
+                                            <button class="editBtn" ms-click="events.editHuibiao($index)">编辑</button>
+                                            <button class="deleBtn" ms-click="events.delectHuibiao(el.id, $index)">删除</button>
+                                            
+                                        </td>
+                                        <td class="s12" ms-visible="infos.bstatus==1">
+                                            <p ms-visible="el.status==0">已被选择等待审核</p>
+                                            <p ms-visible="el.status==1">等待回标</p>
+                                            <p ms-visible="el.status==2">已回标</p>
+                                            <p ms-visible="el.status==3">等待审核</p>
+                                            <p ms-visible="el.status==4">等待审核</p>
+                                            <p ms-visible="el.status==5">中标</p>
+                                            <p ms-visible="el.status==6">未中标</p>
+                                        </td>
+                                    </tr>
+                                <!-- </ul> -->
+                            </table>
+                            <div class="btnb" ms-visible="infos.bstatus!=1">
+                                <button class="btn hb_addBtn"  ms-click="events.targePop(true)">+ 添加回标</button>
+                                <button class="btn hb_helpBtn" ms-click="events.helpPop(true)"><span><i class="book_ic"></i>填写帮助</span></button>
+                            </div>
+                            <div class="helpPop" ms-visible="helpPop">
+                                <div class="box">
+                                    <button class="closePop" ms-click="events.helpPop(false)"></button>
+                                    <div class="img"><img src="../../images/help_img.png" alt=""></div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row dt_clause" ms-visible="infos.bstatus!=1">
+                            <h4>3.承诺条款</h4>
+                            <div class="dt_from dt_cs_from">
+                                <div class="input_view">
+                                    <dl>
+                                        <dt>本公司承诺本报价单的内容真实有效。报价单提交巨人系统后，经巨人集团公司确定本公司作为本次采购的中标供应商后，该报价单具有与合同同等法律效力，本公司若未能在按照报价单要求交付符合巨人集团公司需求的产品，给巨人集团公司造成的损失将由本公司承担。</dt>
+                                        <dd class="radio_input_isdele">
+                                            <div class="radio" ms-click="events.selectRadio('isClause', null, null)"><i></i><span>已阅，同意</span></div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row sibmits" ms-visible="infos.bstatus!=1">
+                            <h4></h4>
+                            <button class="sbtBtn submitBtn" ms-click="events.submitHuibiaoAll()">提交</button>
+                        </div>
+                </div>
+            </div>
+            <div class="tabCons tcbox " ms-visible="result.length>0">
+                <div class="ml_details statt">
+                    <div class="row" >
+                        <h4><span><i class="horn_ic"></i>中标公告</span></h4>
+                        <ul class="st_comps">
+                            <li ms-repeat="result" ms-text="el"></li>
+                        </ul>
+                        <div class="st_txts">
+                            {{result_publicity | htmlwrap | html}}
+                        </div>
+                        <div class="statement">
+                            <div class="sbox">
+                                <p>巨人招标小组</p>
+                                <p ms-text="result_date"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

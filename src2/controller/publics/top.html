@@ -1,0 +1,62 @@
+
+<div ms-class="cl top {{top_class}}">
+    <!-- banner轮播 -->
+    <div class="bannerbox">
+        <div class="showBox">
+            <ul>
+                <li><img src="images/banner/bn1.jpg" alt=""></li>
+                <li><img src="images/banner/bn2.jpg" alt=""></li>
+                <li><img src="images/banner/bn3.jpg" alt=""></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 头部导航 -->
+    <div class="header" ms-class-1="isLogin:userInfo.isLogin">
+        <div class="pa giant_logo"><img src="./images/giant_logo.png" alt="giant_logo"></div>
+        <div class="logos fl"><img src="./images/gop_logo.png" alt="logo"></div>
+        <ul class="fr cl navMenu">
+            <li ms-class="on:(pageName=='index'||pageName=='home')"><a href="#!/home">首页<i></i></a></li>
+            <li ms-class="on:(pageName=='projects')"><a href="#!/projects" target="_blank">外包项目<i></i></a></li>
+            <li ms-visible="userInfo.isLogin" ms-class="on:(pageName=='mylists'&&pageType=='worklist')"><a href="#!/mylists/worklist" target="_blank">我的工作<span ms-visible="userInfo.worknum!=0" class="num" ms-text="userInfo.worknum"></span><i></i></a></li>
+            <li ms-visible="userInfo.isLogin" ms-class="on:(pageName=='mylists'&&pageType=='bidlist')"><a href="#!/mylists/bidlist" target="_blank">我的竞标<span ms-visible="userInfo.bidnum!=0" class="num" ms-text="userInfo.bidnum"></span><i></i></a></li>
+            <li ms-visible="userInfo.isLogin" ms-class="on:(pageName=='myinfo'||pageName=='edit')"><a ms-attr-href="'#!/myinfo/'+userInfo.ubid" target="_blank">我的主页<i></i></a></li>
+            <li ms-class="on:(pageName=='guide')"><a href="#!/guide" target="_blank">新手指南<i></i></a></li>
+        </ul>
+        <div class="pa loginView">
+            <div class="login_dol" ms-if="!userInfo.isLogin">
+                <a href="javascript:;" ms-click="pop.events.openLoginPop" class="btn dologin">登录</a>
+                <a href="javascript:;" ms-click="pop.events.openRegister" class="btn register">注册</a>
+            </div>
+            <div id="login_isl" class="login_isl" ms-if="userInfo.isLogin" >
+                <div class="userimg"><img ms-attr-src="userInfo.headimg" alt="用户头像"></div>
+                <div class="users">
+                    <span class="name" ms-text="userInfo.nickname"></span>
+                    <i class="ic laxia"></i>
+                </div>
+                
+            </div>
+        </div>
+        <!-- 下拉样式 -->
+        <div id="login_subNav" class="pa subNav" >
+            <ul>
+                <li><a ms-attr-href="'#!/myinfo/'+userInfo.ubid" target="_blank">个人主页</a></li>
+                <li><a href="javascript:;" class="link loginout" ms-click="events.loginOut">退出账号</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 首页title -->
+    <div class="top_title">
+        <h2>巨人发包  等你来拿</h2>
+        <p>做最好玩的游戏，过更快乐的生活，快来加入我们</p>
+        <a href="javascript:;" class="btn applyBtn" ms-click="events.applyEve">合作申请</a>
+    </div>
+    <!-- 指南title -->
+    <div class="guide_title">
+        <h2>新手指南</h2>
+        <p>
+            <span>做最好玩的游戏，过更快乐的生活，快来</span>
+            <a href="javascript:;" class="btn joinBtn" ms-click="events.applyEve">加入我们</a>
+        </p>
+    </div>
+
+</div>

@@ -1,0 +1,57 @@
+<div class="page mylists" ms-attr-data-page="{{pageName}}" ms-controller="mylists">
+    <div class="box box_lose cl">
+        <!-- 项目信息 -->
+        <div class="baseinfo info_myinfo">
+            <div class="row info_base">
+                <div class="l">
+                    <div class="fl imgbox">
+                        <div id="upheadBtn" class="no"><img ms-attr-src="userInfo.headimg" alt=""></div>
+                    </div>
+                    <ul class="fr">
+                        <li class="if_base_profile one" id="basebox">
+                            <div class="tit">
+                                <i class="line_l"></i>
+                                <span ms-text="userInfo.nickname"></span>
+                                <i ms-attr-class="'sex s'+userInfo.gender" ms-if="userInfo.gender"></i>
+                                <em ms-text="userInfo.status_msg"></em>
+                            </div>
+
+                            <div class="tx">
+                                <span ms-text="userInfo.city" ms-visible="userInfo.city"></span>
+                                <span ms-text="userInfo.utype" ms-visible="userInfo.utype"></span>
+                                <span ms-visible="userInfo.bizscope" ms-repeat="userInfo.bizscope" ms-text="el" ></span>
+                                <span ms-text="userInfo.expyear" ms-visible="userInfo.expyear"></span>
+                            </div>
+                        </li>
+                        <li class="if_base_aboutme" id="base_aboutme">
+                            <div class="tit">
+                                <i class="line_l"></i>
+                                <span>关于我</span>
+                            </div>
+                            <div class="tx">
+                                <p ms-html="userInfo.aboutme"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="r">
+                    <a ms-attr-href="'#!/myinfo/'+userInfo.ubid" class="btn pvwInfoBtn">浏览个人主页</a>
+                    <div class="otherInfo" ms-include-src="'./controller/publics/grade.html'" data-include-replace="true">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 列表 -->
+        <div class="mylt_lists">
+            <div class="tabBtns">
+                <ul>
+                    <li ms-class-2="on:(list_tpl.idx==1)"><a href="#!/mylists/worklist">我的工作列表</a></li>
+                    <li ms-class-2="on:(list_tpl.idx==2)"><a href="#!/mylists/bidlist">我的竞标列表</a></li>
+                </ul>
+            </div>
+            <div class="tabCons" ms-include-src="list_tpl.tpl" data-include-rendered="topLoaded">
+                
+            </div>
+        </div>
+    </div>
+</div>

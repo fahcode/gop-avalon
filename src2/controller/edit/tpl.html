@@ -1,0 +1,947 @@
+<div class="page edit" ms-attr-data-page="{{pageName}}" ms-controller="edit">
+    <div class="box box_lose box_pd cl">
+        <!-- 浮动进度栏 -->
+        <div class="pa top_bar" ms-include-src="'./controller/publics/top_bar.html'">
+        </div>
+        <!-- 项目信息 -->
+        <div class="baseinfo info_edit">
+            <div class="row info_base">
+                <div class="l">
+                    <div class="fl imgbox">
+                        <div id="upheadBtn"><span class="ver-mid"></span><img ms-attr-src="userData.headimg" alt=""></div>
+                    </div>
+
+                    <ul class="fr">
+                        <li class="if_base_profile one" id="basebox">
+                            <div class="tit">
+                                <p class="ed_btn" ms-click="events.showEdit('base','true')" ms-visible="!editState.isbase"><i></i>编辑</p>
+                                <i class="line_l"></i>
+                                <span ms-text="userData.nickname"></span>
+                                <i ms-attr-class="'sex s'+userData.gender" ms-if="userData.gender"></i>
+                                <em ms-text="userData.shStatusTxt"></em>
+                            </div>
+                            <div class="tx">
+                                <span ms-text="userData.city" ms-visible="userData.city"></span>
+                                <span ms-text="userData.utype" ms-visible="userData.utype"></span>
+                                <span ms-visible="userData.bizscope.val" ms-repeat="userData.bizscope.val" ms-attr-uid="" ms-text="el"></span>
+                                <span ms-text="userData.expyear" ms-visible="userData.expyear"></span>
+                            </div>
+                        </li>
+                        <li class="if_base_aboutme" id="base_aboutme">
+                            <div class="tit">
+                                <p class="ed_btn" ms-click="events.showEdit('forme','true')" ms-visible="!editState.isforme"><i></i>编辑</p>
+                                <i class="line_l"></i>
+                                <span>关于我</span>
+                            </div>
+                            <div class="tx">
+                                <p ms-visible="editState.isforme_tips">完善全面的介绍可以让巨人更完整立体的了解你</p>
+                                <p ms-html="userData.aboutme" ms-visible="!editState.isforme && userData.aboutme"></p>
+                            </div>
+                            <!-- 关于我 编辑表单 -->
+                            <div class="form_content form_aboutme" ms-visible="editState.isforme" st="1">
+                                <div class="form_item pristine">
+                                    <!-- <span class="show_tpl">查看范例</span> -->
+                                    <div class="desc_tpl"></div>
+                                    <div class="form_desc">
+                                        <textarea id="profileDesc" class="form_textarea" ms-duplex="temps.aboutme"></textarea>
+                                        <div class="tips" ms-visible="temps.aboutme==''?true:false">描述你在专业领域内的经历、成就，充分展示你的实力，更具个人风格的描述对项目方会更有吸引力，公司请填写公司简介。
+                                            <br>
+                                            <span>【我的介绍】</span>
+                                            <br> 综合的自我介绍描述，让别人感受到你的与众不同
+                                            <br> 你的职业经历为你带来的擅长经验是什么
+                                            <br> 你的教育背景
+                                            <br> 有哪些骄傲的获奖成绩
+                                            <br>
+                                            <span>【我擅长的服务】</span>
+                                            <br> 描述你的技能特长
+                                            <br>能提供的服务
+                                        </div>
+                                    </div>
+                                    <p class="error_hint">关于我须在10-500字之间</p>
+                                </div>
+                                <div class="form_btn_bar">
+                                    <a class="save_btn" href="javascript:;" title="确定" ms-click="events.submitForm('forme')">确定</a>
+                                    <a class="cancel_btn" href="javascript:;" title="取消" ms-click="events.showEdit('forme')">取消</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="r">
+                    <a ms-attr-href="'#!/myinfo/'+ubid" class="btn pvwInfoBtn">浏览个人主页</a>
+                    <div class="otherInfo" ms-include-src="'./controller/publics/grade.html'" data-include-replace="true">
+                    </div>
+                </div>
+            </div>
+            <!-- 基本信息的编辑表单 -->
+            <div class="row form_box" ms-visible="editState.isbase" ms-click="events.hideAllSele">
+                <div class="form_content form_base">
+                    <i class="ic bg"></i>
+                    <div class="box">
+                        <div class="tit">基本信息<i class="ic line_b"></i></div>
+                        <div class="form_item">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>昵称</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.nickname" placeholder="请填写公司简称或个人昵称">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>入驻类型</dt>
+                                    <dd>
+                                        <div class="b select" ms-click="events.chkSelect(false)" st="1">
+                                            <p class="selt_v">
+                                                <b ms-visible="temps.utype.val" ms-text="temps.utype.val"></b>
+                                                <b ms-visible="!temps.utype.val">请选择入驻类型</b>
+                                            </p>
+                                            <i class="ic"></i>
+                                            <ul class="ul_sele" ms-each-el="defaultOptions.user_types">
+                                                <li class="op" ms-click="events.selected('user_types',$key,$val)">{{$val}}</li>
+                                            </ul>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="more">
+                                    <dt><i class="ic"></i>业务范围</dt>
+                                    <dd>
+                                        <div class="select select_more" ms-click="events.chkSelect('.selectBox')" st="1">
+                                            <div class="selt_v">
+                                                <p ms-repeat="thirdSele.sele"><i ms-click="events.removeArr($index)"></i><span ms-text="el"></span></p>
+                                                <b ms-visible="thirdSele.sele.length==0">请选择业务范围</b>
+                                            </div>
+                                            <i class="ic"></i>
+                                            <div class="selectBox" ms-click="events.stopEven">
+                                                <ul class="ul_sele first">
+                                                    <li class="op" ms-repeat="thirdSele.first" ms-text="el.cname" ms-attr-uid="el.id" ms-class-2="on:($index==0)" ms-click="events.thirdSele(1, $index)"></li>
+                                                </ul>
+                                                <ul class="ul_sele second">
+                                                    <li class="op" ms-repeat-el2="thirdSele.second" ms-text="el2.cname" ms-attr-uid="el2.id" ms-class-2="on:($index==0)" ms-click="events.thirdSele(2, $index)"></li>
+                                                </ul>
+                                                <ul class="ul_sele third">
+                                                    <li class="op" ms-repeat-el3="thirdSele.third" ms-text="el3.cname" ms-attr-uid="el3.id" ms-class-2="on:($index==0)" ms-click="events.thirdSele(3, el3.id, el3.cname)"></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt class="noic"><i class="ic "></i>其他业务补充</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.bizother" placeholder="输入你擅长的业务类型">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>工作经验</dt>
+                                    <dd>
+                                        <div class="b select" ms-click="events.chkSelect(false)" st="1">
+                                            <p class="selt_v">
+                                                <b ms-visible="temps.expyear.val" ms-text="temps.expyear.val"></b>
+                                                <b ms-visible="!temps.expyear.val">请选择工作经验</b>
+                                            </p>
+                                            <i class="ic"></i>
+                                            <ul class="ul_sele" ms-each-el="defaultOptions.expyears">
+                                                <li class="op" ms-click="events.selected('expyear',$key,$val)">{{$val}}</li>
+                                            </ul>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>服务参考价格</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.daywage" placeholder="建议填写日薪，若按需求定价，请填写1
+">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>所在城市</dt>
+                                    <dd>
+                                        <div class="b"><i class="ic"></i>
+                                            <input type="text" ms-duplex="temps.city" id="kuCity">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl ms-if="!editState.isTeamState">
+                                    <dt><i class="ic"></i>性别</dt>
+                                    <dd>
+                                        <div class="b select" ms-click="events.chkSelect(false)" st="1">
+                                            <p class="selt_v">
+                                                <b ms-visible="temps.gender.val" ms-text="temps.gender.val"></b>
+                                                <b ms-visible="!temps.gender.val">请选择性别</b>
+                                            </p>
+                                            <i class="ic"></i>
+                                            <ul class="ul_sele" ms-each-el="defaultOptions.gender">
+                                                <li class="op" ms-click="events.selected('gender',$key,$val)">{{$val}}</li>
+                                            </ul>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="form_btn_bar">
+                            <a class="save_btn" href="javascript:;" ms-click="events.submitForm('base')">确定</a>
+                            <a class="cancel_btn" href="javascript:;" ms-click="events.showEdit('base')">取消</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row ed_add">
+                <!-- 代表作品 -->
+                <div class="form_content profile_works" id="profile_works">
+                    <span class="ed_btn" ms-click="events.showEdit('works','true')" ms-visible="editState.isWorksBtn"><i></i>添加</span>
+                    <div class="box">
+                        <div class="tit"><strong>代表作品/案例展示</strong></div>
+                        <p class="explain">至少添加<span>2个以上</span>的作品案例才可以提交审核</p>
+                        <div class="form_item" ms-visible="editState.isWorks">
+                            <div class="input_view">
+                                <div class="upWorksBtn">
+                                    <div class="upbtn" id="upWorksBtn" ms-attr-imgurl="temps.wpic">
+                                        <p class="tps"><i class="ic photo_icon"></i>上传图片尺寸为：898 x 392px
+                                            <br>支持的格式：jpg/png/jpeg/gif</p>
+                                        <img ms-attr-src="temps.wpic">
+                                    </div>
+                                </div>
+                                <dl>
+                                    <dt><i class="ic"></i>作品名称</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" placeholder="作品名称" ms-duplex="temps.wname">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>职责</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" placeholder="请输入你的职责（20字以内）" ms-duplex="temps.wduty">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt class="noic"><i class="ic"></i>作品链接</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" placeholder="作品链接" ms-duplex="temps.wlink">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="more">
+                                    <dt><i class="ic"></i>作品简介</dt>
+                                    <dd>
+                                        <div class="form_desc works_desc">
+                                            <textarea id="worksDesc" class="form_textarea" ms-duplex="temps.wdesc"></textarea>
+                                            <div class="tips" ms-visible="temps.wdesc==''?true:false">请简单描述一下您的作品</div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="form_btn_bar">
+                                <a class="save_btn" href="javascript:;" ms-click="events.submitForm('works')">确定</a>
+                                <a class="cancel_btn" href="javascript:;" ms-click="events.showEdit('works')">取消</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product_show works_show" >
+                        <div class="work_box" ms-repeat="defaultWorks">
+                            <div class="product_item">
+                                <dl>
+                                    <dt><img alt="作品图片" ms-attr-src="el.wpic"></dt>
+                                    <dd>
+                                        <div class="title">
+                                            <h3>{{el.wname}}<span><i class="dot">•</i>{{el.wduty}}</span></h3></div>
+                                        <div class="show_product_desc" ms-html="el.wdesc"></div>
+                                        <a class="quick_link" target="_blank" rel="nofollow" ms-attr-href="el.wlink">作品链接</a>
+                                        <div class="operate_bar">
+                                            <a href="javascript:;" class="product_delete icon-delete" ms-click="events.work_edit(el,'del')" title="删除"></a>
+                                            <a href="javascript:;" class="product_edit icon-edit-fat" ms-click="events.work_edit(el)" title="修改"></a>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="form_item">
+                                <div class="input_view">
+                                    <div class="upWorksBtn">
+                                        <div ms-attr-id="'upWorksBtn'+$index" ms-attr-imgurl="temps.wpic" class="upbtn">
+                                            <img ms-attr-src="temps.wpic">
+                                        </div>
+                                    </div>
+                                    <dl>
+                                        <dt><i class="ic"></i>作品名称</dt>
+                                        <dd>
+                                            <div class="b">
+                                                <input type="text" placeholder="作品名称" ms-duplex="temps.wname">
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><i class="ic"></i>职责</dt>
+                                        <dd>
+                                            <div class="b">
+                                                <input type="text" placeholder="请输入你的职责（20字以内）" ms-duplex="temps.wduty">
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt class="noic"><i class="ic"></i>作品链接</dt>
+                                        <dd>
+                                            <div class="b">
+                                                <input type="text" placeholder="作品链接" ms-duplex="temps.wlink">
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="more">
+                                        <dt><i class="ic"></i>作品简介</dt>
+                                        <dd>
+                                            <div class="form_desc works_desc">
+                                                <textarea id="worksDesc" class="form_textarea" ms-duplex="temps.wdesc"></textarea>
+                                                <div class="tips" ms-visible="temps.wdesc==''?true:false">请简单描述一下您的作品</div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <div class="form_btn_bar">
+                                    <a class="save_btn" href="javascript:;" ms-click="events.submitForm('works')">确定</a>
+                                    <a class="cancel_btn" href="javascript:;" ms-click="events.showEdit('works',false,true)">取消</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 公司信息 -->
+                <div class="form_content profile_cpinfo" id="profile_cpinfo" ms-visible="editState.isTeamState">
+                    <span class="ed_btn" ms-click="events.showEdit('company','true')" ms-visible="!editState.isComp"><i></i>{{!!editPlan.comp?"修改":"添加"}}</span>
+                    <div class="box">
+                        <div class="tit"><strong>公司信息</strong></div>
+                        <div class="form_item company_show" ms-visible="!editState.isComp&&editPlan.comp">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>公司全称</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.company.cname"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>公司规模及人数</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.company.scale"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>公司地址</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.company.addr"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>邮编</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.company.zipcode"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>公司电话</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.company.phonenum"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt class="noic"><i class="ic"></i>公司网址</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.company.website"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系人</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.company.contact"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系方式</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.company.mobile"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>QQ</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.company.qq"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>E-MAIL</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.company.email"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="form_item" ms-visible="editState.isComp">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>公司全称</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.company.cname">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>公司规模及人数</dt>
+                                    <dd>
+                                        <div class="b select" ms-click="events.chkSelect(false)" st="1">
+                                            <p class="selt_v">
+                                                <b ms-visible="temps.company.scale.val" ms-text="temps.company.scale.val"></b>
+                                                <b ms-visible="!temps.company.scale.val">请选择公司规模</b>
+                                            </p>
+                                            <i class="ic"></i>
+                                            <ul class="ul_sele" ms-each-cpn="defaultOptions.company_scales">
+                                                <li class="op" ms-click="events.selected('company_scales', $index, cpn)">{{cpn}}</li>
+                                            </ul>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>公司地址</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.company.addr">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>邮编</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.company.zipcode">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>公司电话</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.company.phonenum">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt class="noic"><i class="ic"></i>公司网址</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.company.website">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系人</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.company.contact">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系方式</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.company.mobile">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>QQ</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.company.qq">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>E-MAIL</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.company.email">
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="form_btn_bar">
+                                <a class="save_btn" href="javascript:;" ms-click="events.submitForm('company')">确定</a>
+                                <a class="cancel_btn" href="javascript:;" ms-click="events.showEdit('company',false,true)">取消</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 个人信息 -->
+                <div class="form_content profile_myinfo" id="profile_myinfo" ms-visible="!editState.isTeamState">
+                    <span class="ed_btn" ms-click="events.showEdit('personal','true')" ms-visible="!editState.isPersonal"><i></i>{{!!editPlan.myf?"修改":"添加"}}</span>
+                    <div class="box">
+                        <div class="tit"><strong>联系信息</strong></div>
+                        <div class="form_item personal_show" ms-visible="!editState.isPersonal&&editPlan.myf">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>个人地址</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.personal.addr"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>邮编</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.personal.zipcode"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系人</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.personal.contact"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系方式</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.personal.mobile"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>QQ</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.personal.qq"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>E-MAIL</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.personal.email"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>身份证</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.personal.idcode"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="more">
+                                    <dt><i class="ic"></i>证件上传</dt>
+                                    <dd>
+                                        <div class="s idpic">
+                                            <div class="upbtn fl">
+                                                <img ms-if="userData.personal.idpica" ms-attr-src="userData.personal.idpica">
+                                            </div>
+                                            <div class="upbtn fr">
+                                                <img ms-attr-src="userData.personal.idpicb">
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="form_item" ms-visible="editState.isPersonal">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>个人地址</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.personal.addr">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>邮编</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.personal.zipcode">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系人</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.personal.contact">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>联系方式</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.personal.mobile">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>QQ</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.personal.qq">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>E-MAIL</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.personal.email">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>身份证</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.personal.idcode">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="more">
+                                    <dt><i class="ic"></i>证件上传</dt>
+                                    <dd>
+                                        <div class="s idpic">
+                                            <div class="upbtn fl" id="idpica">
+                                                <img ms-if="temps.personal.idpica" ms-attr-src="temps.personal.idpica">
+                                                <p class="tps">身份证正面</p>
+                                            </div>
+                                            <div class="upbtn fr" id="idpicb">
+                                                <img ms-if="temps.personal.idpicb" ms-attr-src="temps.personal.idpicb">
+                                                <p class="tps">身份证反面</p>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="form_btn_bar">
+                                <a class="save_btn" href="javascript:;" ms-click="events.submitForm('personal')">确定</a>
+                                <a class="cancel_btn" href="javascript:;" ms-click="events.showEdit('personal',false,true)">取消</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 工商登记 -->
+                <div class="form_content profile_bizreg" id="profile_bizreg" ms-visible="editState.isTeamState">
+                    <span class="ed_btn" ms-click="events.showEdit('bizreg','true')" ms-visible="!editState.isBizreg"><i></i>{{!!editPlan.biz?"修改":"添加"}}</span>
+                    <div class="box">
+                        <div class="tit"><strong>工商登记</strong></div>
+                        <div class="form_item bizreg_show" ms-visible="!editState.isBizreg&&editPlan.biz">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>公司名称</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.bizreg.bname"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>统一社会信用代码/CI</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.bizreg.regnum"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>营业/CI执照有效期</dt>
+                                    <dd class="two">
+                                        <div class="b">
+                                            <p ms-html="userData.bizreg.licdate"></p>
+                                        </div>
+                                        <span>至</span>
+                                        <div class="b fr">
+                                            <p ms-html="userData.bizreg.licdate2"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>法定代表人</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.bizreg.lperson"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>注册地</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.bizreg.regaddr"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>注册资本金</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="userData.bizreg.regcaptal"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="more">
+                                    <dt><i class="ic"></i>营业/CI执照复印件</dt>
+                                    <dd>
+                                        <div class="s licpic">
+                                            <div class="upbtn">
+                                                <img ms-attr-src="userData.bizreg.licpic">
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="more">
+                                    <dt><i class="ic"></i>银行开户许可证</dt>
+                                    <dd>
+                                        <div class="s bankpic">
+                                            <div class="upbtn">
+                                                <img ms-attr-src="userData.bizreg.bankpic">
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="form_item" ms-visible="editState.isBizreg">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>公司名称</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.bizreg.bname">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>统一社会信用代码/CI</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.bizreg.regnum">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>营业/CI执照有效期</dt>
+                                    <dd class="two">
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.bizreg.licdate" id="calendar">
+                                        </div>
+                                        <span>至</span>
+                                        <div class="b fr">
+                                            <input type="text" ms-duplex="temps.bizreg.licdate2" id="calendar2">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>法定代表人</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.bizreg.lperson">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>注册地</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.bizreg.regaddr">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>注册资本金</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.bizreg.regcaptal">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="more">
+                                    <dt><i class="ic"></i>营业/CI执照复印件</dt>
+                                    <dd>
+                                        <div class="s licpic">
+                                            <div class="upbtn" id="licpic">
+                                                <img ms-if="temps.bizreg.licpic" ms-attr-src="temps.bizreg.licpic">
+                                                <p class="tps">营业/CI执照复印件</p>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="more">
+                                    <dt><i class="ic"></i>银行开户许可证</dt>
+                                    <dd>
+                                        <div class="s bankpic">
+                                            <div class="upbtn" id="bankpic">
+                                                <img ms-if="temps.bizreg.bankpic" ms-attr-src="temps.bizreg.bankpic">
+                                                <p class="tps">银行账户开户许可证</p>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="form_btn_bar">
+                                <a class="save_btn" href="javascript:;" ms-click="events.submitForm('bizreg')">确定</a>
+                                <a class="cancel_btn" href="javascript:;" ms-click="events.showEdit('bizreg',false,true)">取消</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 付款信息 -->
+                <div class="form_content profile_payinfo" id="profile_payinfo" ms-visible="editPlan.comp||editPlan.myf">
+                    <span class="ed_btn" ms-click="events.showEdit('payinfo','true')" ms-visible="!editState.isPayinfo"><i></i>{{!!editPlan.pay?"修改":"添加"}}</span>
+                    <div class="box">
+                        <div class="tit"><strong>付款信息</strong></div>
+                        <div class="form_item payinfo_show" ms-visible="!editState.isPayinfo&&editPlan.pay">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>账户名</dt>
+                                    <dd>
+                                        <div class="b n">
+                                            <p ms-html="userData.payinfo.accname"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>开户银行</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="temps.payinfo.bank"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>开户支行</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="temps.payinfo.branch"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>账户账号</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="temps.payinfo.accnum"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>银行所在地</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <p ms-html="temps.payinfo.city"></p>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="form_item" ms-visible="editState.isPayinfo">
+                            <div class="input_view">
+                                <dl>
+                                    <dt><i class="ic"></i>账户名</dt>
+                                    <dd>
+                                        <div class="b n">
+                                            <input type="text" ms-duplex="userData.payinfo.accname" placeholder="公司名或联系人" readonly="readonly">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>开户银行</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.payinfo.bank">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>开户支行</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.payinfo.branch">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>账户账号</dt>
+                                    <dd>
+                                        <div class="b">
+                                            <input type="number" ms-duplex="temps.payinfo.accnum">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic"></i>银行所在地</dt>
+                                    <!-- <dd>
+                                        <div class="b">
+                                            <input type="text" ms-duplex="temps.payinfo.city">
+                                        </div>
+                                    </dd> -->
+                                    <dd>
+                                        <div class="select select_more" ms-click="events.chkSelect('.selectBox')" st="1">
+                                            <div class="selt_v">
+                                                <input type="text" ms-duplex="AreaThirdSele.sele" placeholder="请选择城市" readonly="readonly">
+                                            </div>
+                                            <i class="ic"></i>
+                                            <div class="selectBox" ms-click="events.stopEven">
+                                                <ul class="ul_sele first">
+                                                    <li class="op" ms-repeat="AreaThirdSele.first" ms-text="el.name" ms-attr-uid="el.id" ms-class-2="on:($index==0)" ms-click="events.AreaThirdSele(1, $index)"></li>
+                                                </ul>
+                                                <ul class="ul_sele second">
+                                                    <li class="op" ms-repeat-el2="AreaThirdSele.second" ms-text="el2.name" ms-attr-uid="el2.id" ms-class-2="on:($index==0)" ms-click="events.AreaThirdSele(2, $index)"></li>
+                                                </ul>
+                                                <ul class="ul_sele third">
+                                                    <li class="op" ms-repeat-el3="AreaThirdSele.third" ms-text="el3.name" ms-attr-uid="el3.id" ms-class-2="on:($index==0)" ms-click="events.AreaThirdSele(3, el3.name, el3.id)"></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="form_btn_bar">
+                                <a class="save_btn" href="javascript:;" ms-click="events.submitForm('payinfo')">确定</a>
+                                <a class="cancel_btn" href="javascript:;" ms-click="events.showEdit('payinfo',false,true)">取消</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

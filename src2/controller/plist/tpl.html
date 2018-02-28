@@ -1,0 +1,31 @@
+<div class="page plist" ms-attr-data-page="{{pageName}}" ms-controller="plist">
+    <div class="box cl">
+        <!-- 面包屑 -->
+        <div id="operate_notes">
+            <div class="notes_bar">
+                <a class="over" href="#!/home">首页</a>
+                <i class="will_tips"></i>
+                <a class="will_attain" href="javascript:void(0);">项目分类</a>
+            </div>
+        </div>
+        <!-- 项目分类 -->
+        <div class="plist_pj_list">
+            <ul class="list cl" ms-attr-class="'list cl colu'+colu">
+                <li ms-attr-class="'item i'+(1+$index)" ms-repeat-el="list" ms-attr-uid="el.id">
+                    <div class="plist_tit">
+                        <img ms-attr-src="el.icon" alt="">
+                        <p ms-text="el.cname"></p>
+                        <span ms-text="el.desc"></span>
+                    </div>
+                    <div class="sub_list" ms-repeat-sub="el.child" ms-attr-uid="sub.id">
+                        <p class="t" ms-text="sub.cname"></p>
+                        <ul>
+                            <li ms-repeat-subs="sub.child" ms-attr-uid="subs.id"><a href="javascript:;" ms-text="subs.cname" ms-attr-title="subs.cname"></a></li>
+                        </ul>
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>

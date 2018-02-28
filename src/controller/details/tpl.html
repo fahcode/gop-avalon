@@ -1,0 +1,68 @@
+<div class="page details" ms-attr-data-page="{{pageName}}" ms-controller="details">
+	<div class="box cl">
+		<!-- 面包屑 -->
+	    <div id="operate_notes">
+	        <div class="notes_bar">
+	            <a class="over" href="#!/projects">项目列表</a>
+	            <i class="will_tips"></i>
+	            <a class="will_attain" href="javascript:void(0);">项目详情</a>
+	        </div>
+	    </div>
+        <!-- 项目信息 -->	
+        <div class="dt_pj_info">
+            <div class="pj_title">
+                <span ms-text="data.pname"></span>
+                <span class="status recruiting" ms-if="data.pstatus==0">招募中</span>
+                <span class="status recruiting h" ms-if="data.pstatus==1">已结束</i></span>
+            </div>
+            <ul class="pj_baseInfo">
+                <li><i class="icons icon-bookmark"></i><span class="project_key">项目类型：</span><span>{{data.cate1}}/{{data.cate2}}/{{data.cate3}}</span></li>
+                <li><i class="icons icon-building"></i><span class="pj_key">发布时间：</span><span class="time" ms-text="data.pubdate"></span></li>
+            </ul>
+            <div class="category_list">
+                <span class="category_tag" ms-repeat="data.ptags" ms-text="el"></span>
+            </div>
+            <div class="pj_content ">
+                <div class="pj_title"><span>项目描述</span></div>
+                <div class="pj_txt" ms-html="data.pdesc">
+                </div>
+                <!-- 插入图片 -->
+                <ul class="imlist">
+                    <li class="imgbig" ms-repeat="data.descimg" ms-attr-iurl="el.url" ms-attr-iwidth="el.width" ms-attr-iheight="el.height"><img ms-attr-src="el.thumb" alt=""></li>
+                </ul>
+                <!-- 插入下载 -->
+                <div class="dlbox" ms-if="isshowfile">
+                    <a ms-attr-href="data.attachment" title="下载"></a>
+                    <div ms-attr-class="filetype"></div>
+                    <p class="t" ms-text="data.filename"></p>
+                </div>
+            </div>
+        </div>
+        <!-- 项目申请面板 -->
+        <div class="dt_pj_panel pa">
+            <div class="txtbox">
+                <div class="num_item">
+                    <!-- <p class="short_label">项目预算</p>
+                    <p class="short_val" ms-text="data.budget"></p> -->
+                    <p class="short_label">项目类型</p>
+                    <p class="short_val" ><span>{{data.cate3}}</span></p>
+                </div>
+                <div class="num_item">
+                    <p class="short_label">时间周期</p>
+                    <p class="short_val" ms-text="data.cycle"></p>
+                </div>
+                <div class="num_item">
+                    <p class="short_label">预计完成时间</p>
+                    <p class="short_val" ms-text="data.finishdate"></p>
+                </div>
+                <div class="num_item">
+                    <p class="short_label">招标结束时间</p>
+                    <p class="short_val" ms-text="data.enddate"></p>
+                </div>
+            </div>
+            <div class="btn_view">
+                <a class="btn apply_btn" href="javascript:;" ms-click="events.apply_btn(data.id, data.pstatus)" ms-class-2="isapply:isapply.s" ms-class-3="isend:(data.pstatus==1)" ms-text="isapply.t"></a>
+            </div>
+        </div>
+    </div>
+</div>

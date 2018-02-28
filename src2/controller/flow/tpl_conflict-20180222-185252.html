@@ -1,0 +1,738 @@
+<div class="page myinfo flow" ms-attr-data-page="{{pageName}}" ms-controller="flow">
+    <div class="box box_lose cl">
+        <!-- 项目信息 -->
+        <div class="baseinfo info_myinfo">
+            <div class="row info_base">
+                <div class="l">
+                    <div class="fl imgbox">
+                        <div id="upheadBtn" class="no"><img ms-attr-src="userInfo.headimg" alt=""></div>
+                    </div>
+                    <ul class="fr">
+                        <li class="if_base_profile one" id="basebox">
+                            <div class="tit">
+                                <i class="line_l"></i>
+                                <span ms-text="userInfo.nickname"></span>
+                                <i ms-attr-class="'sex s'+userInfo.gender" ms-if="userInfo.gender"></i>
+                                <em ms-text="userInfo.status_msg"></em>
+                            </div>
+                            <div class="tx">
+                                <span ms-text="userInfo.city" ms-visible="userInfo.city"></span>
+                                <span ms-text="userInfo.utype" ms-visible="userInfo.utype"></span>
+                                <span ms-visible="userInfo.bizscope" ms-repeat="userInfo.bizscope" ms-text="el"></span>
+                                <span ms-text="userInfo.expyear" ms-visible="userInfo.expyear"></span>
+                            </div>
+                        </li>
+                        <li class="if_base_aboutme" id="base_aboutme">
+                            <div class="tit">
+                                <i class="line_l"></i>
+                                <span>关于我</span>
+                            </div>
+                            <div class="tx">
+                                <p ms-html="userInfo.aboutme"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="r">
+                    <a ms-attr-href="'#!/myinfo/'+userInfo.ubid" class="btn pvwInfoBtn">浏览个人主页</a>
+                    <div class="otherInfo" ms-include-src="'./controller/publics/grade.html'" data-include-replace="true">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flw_from">
+            <!-- 流程节点 -->
+            <!-- 整个流程 -->
+            <div class="row demand">
+                <div class="crumbs">
+                    <span class="a">当前位置：</span>
+                    <a class="b">外包项目<span>&gt;</span></a>
+                    <span class="n" ms-text="uInfo.title"></span>
+                </div>
+                <!-- <div class="r_info">业务PM：<spa ms-text="nowNode.pre_opt_realname"></span></div> -->
+                <ul class="fbox">
+                    <li class="hd projectInfo">
+                        <!-- 展示，发起需求 -->
+                        <dl>
+                            <dd class="ti"><span ms-text="uInfo.title"></span></dd>
+                        </dl>
+                        <div class="mo">
+                            <dl>
+                                <dt>项目：</dt>
+                                <dd><span ms-text="uInfo.gamename"></span></dd>
+                            </dl>
+                            <dl>
+                                <dt>需求分类：</dt>
+                                <dd><span>{{uInfo.cid1_name + "-" + uInfo.cid2_name + "-" + uInfo.cid3_name}}</span></dd>
+                            </dl>
+                            <dl>
+                                <dt>数量：</dt>
+                                <dd><span>{{uInfo.number}}</span></dd>
+                            </dl>
+                            <dl>
+                                <dt>期望完成时间：</dt>
+                                <dd><span ms-text="uInfo.exptime"></span></dd>
+                            </dl>
+                            <dl>
+                                <dt>预计金额：</dt>
+                                <dd><span ms-text="uInfo.money"></span></dd>
+                            </dl>
+                            <dl ms-visible="uInfo.filename!=''">
+                                <dt>附件：</dt>
+                                <dd>
+                                    <div class="upFiles sm">
+                                        <a class="u_file" ms-text="uInfo.filename" ms-attr-href="uInfo.fileurl" target="_blank"></a>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="dl_btn" ms-class-1="on:showDetails" ms-click="events.switchFN('showDetails')">
+                                <span class="showBtn ">需求详情<i class="ck_ics" ms-class-1="on:showDetails"></i></span>
+                            </dl>
+                        </div>
+                        <div class="nodeState">
+                            <p class="ti">当前节点</p>
+                            <p class="name" ms-text="nowNode.node_name"></p>
+                            <p class="user" ms-text="nowNode.apply_realname"></p>
+                        </div>
+                        <dl class="project_details" ms-visible="showDetails">
+                            <dd>{{uInfo.content | htmlwrap | html}}</dd>
+                        </dl>
+                    </li>
+                    <!-- 展示部分,全部结构包裹起来，做样式 -->
+                    <div class="nodeboxs">
+                        <!-- 循环部分 -->
+                        <div ms-each-ael="allNode">
+                            <!-- ######栏目按钮 -->
+                            <li class="nodebtn" ms-if="!!ael.title&&!ael.pre_node_name" ms-class-1="firstBtn: ael.node_flag=='node_cmp_provider'" ms-click="events.switchBox(this)">
+                                <i class="h_line"></i>
+                                <div class="switchBtn">
+                                    <span class="s" ms-text="ael.title"></span><span class="h">展开更多</span><i class="sj_ic"></i>
+                                </div>
+                            </li>
+                            <!-- ######验收按钮 -->
+                            <li class="nodebtn" ms-if="ael.node_flag=='node_work_submit'" ms-click="events.switchBox(this)">
+                                <i class="h_line"></i>
+                                <div class="switchBtn">
+                                    <span class="s" ms-text="ael.data.stype==2? '最终验收': '过程验收'"></span><span class="h">展开更多</span><i class="sj_ic"></i>
+                                </div>
+                            </li>
+                            <!-- ######结束按钮 -->
+                            <li class="nodebtn endbtn" ms-if="ael.node_flag=='finish'||ael.node_flag=='close'" >
+                                <i class="h_line"></i>
+                                <p class="endtxt">结束日期：<span ms-text="ael.ltime"></span></p>
+                            </li>
+                            <li class="t" ms-if="ael.node_flag=='node_cmp_provider'" ms-class-1="firstNode: ael.node_flag=='node_cmp_provider'" ms-class-1="last: !!ael.isLastNode" >
+                                <i class="h_line"></i>
+                                <!-- 展示，"比价邀请" -->
+                                <p class="dl_tit"><i></i><span ms-text="ael.node_name"></span></p>
+                                <div class="nbox">
+                                    <dl>
+                                        <dt><i class="ic_bk2"></i>说明：</dt>
+                                        <dd><p class="htxt">{{uInfo.cmp_desc | htmlwrap | html}}</p></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><a href="javascript:;"><i class="ic_tm"></i><b>报价截至时间</b></a></dt>
+                                        <dd><span ms-text="uInfo.cmp_time"></span></dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <li class="t" ms-class-1="last: !!ael.isLastNode" ms-if="ael.node_flag=='node_cmp_reply'&&showStates.baojia_result">
+                                <i class="h_line"></i>
+                                <!-- 展示 报价 -->
+                                <p class="dl_tit"><i></i><span ms-text="ael.node_name"></span></p>
+                                <div class="nbox">
+                                    <dl>
+                                        <dt><i class="ic_gt"></i>状态：</dt>
+                                        <dd>
+                                            <p ms-text="baojia_result.status==5? '已中标': (baojia_result.status==6? '未中标': '等待审核中')"></p>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><i class="ic_cy"></i>价格：</dt>
+                                        <dd><span ms-text="baojia_result.price"></span></dd>
+                                    </dl>
+                                    
+                                    <dl class="d_last">
+                                        <dt><a href="javascript:;"><i class="ic_file"></i><b>补充附件</b></a></dt>
+                                        <dd>
+                                            <a class="u_file no" ms-if="baojia_result.cmp.length<2" ms-text="baojia_result.cmp[0].fname" ms-attr-href="baojia_result.cmp[0].fpath" ms-attr-download="baojia_result.cmp[0].fname" target="_blank"></a>
+
+                                            <div class="files" ms-if="baojia_result.cmp.length>1">
+                                                <a class="u_file no" ms-text="baojia_result.cmp[0].fname" ms-attr-href="baojia_result.cmp[0].fpath" ms-attr-download="baojia_result.cmp[0].fname" target="_blank"></a>
+                                                <div class="float_file">
+                                                    <a class="u_file" ms-repeat="baojia_result.cmp" ms-text="el.fname" ms-attr-href="el.fpath" ms-attr-download="el.fname" target="_blank"></a>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><i class="ic_bk1"></i>备注：</dt>
+                                        <dd><a href="javascript:;" class="floatb">
+                                            <p class="htxt" ms-text="baojia_result.remark"></p>
+                                            <div class="float_box" ms-text="baojia_result.remark"></div>
+                                        </a></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><a href=""><i class="ic_tm"></i><b>承诺完成日期</b></a></dt>
+                                        <dd><span ms-text="baojia_result.dtime"></span></dd>
+                                    </dl>
+                                </div>
+                            </li>
+
+                            <li class="t" ms-class-1="last: !!ael.isLastNode" ms-if="ael.node_flag=='node_work_analysis'">
+                                <i class="h_line"></i>
+                                <p class="dl_tit"><i></i><span ms-text="ael.node_name"></span></p>
+                                <!-- 展示 报价需求分析结果 -->
+                                <div class="nbox">
+                                    <dl>
+                                        <dt><i class="ic_bk2"></i>补充说明：</dt>
+                                        <dd>
+                                            <p >{{ael.data.content | htmlwrap | html}}</p>
+                                        </dd>
+                                    </dl>
+                                    <dl class="d_last">
+                                        <dt><a href="javascript:;"><i class="ic_file"></i><b>补充附件</b></a></dt>
+                                        <dd>
+                                            <a class="u_file no" ms-if="ael.data.files.length<2" ms-text="ael.data.files[0].fname" ms-attr-href="ael.data.files[0].fpath" ms-attr-download="ael.data.files[0].fname" target="_blank"></a>
+
+                                            <div class="files" ms-if="ael.data.files.length>1">
+                                                <a class="u_file no" ms-text="ael.data.files[0].fname" ms-attr-href="ael.data.files[0].fpath" ms-attr-download="ael.data.files[0].fname" target="_blank"></a>
+                                                <div class="float_file">
+                                                    <a class="u_file" ms-repeat="ael.data.files" ms-text="el.fname" ms-attr-href="el.fpath" ms-attr-download="el.fname" target="_blank"></a>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><i class="ic_bk1"></i></dt>
+                                        <dd>
+                                            <a href="javascript:;" class="floatb">
+                                                <span>查看开票信息</span>
+                                                <div class="float_box">
+                                                    <p>发票抬头：上海巨人统平网络科技有限公司</p>
+                                                    <p>纳税人识别号：913101045947355133</p>
+                                                    <p>发票类型：增值税普通发票</p>
+                                                    <p>发票内容：制作费/宣传费</p>
+                                                    <p>发票收件人：王兰兰 </p>
+                                                    <p>联系方式：33979999-3961</p>
+                                                    <p>公司地址：松江区中凯路988号</p>
+                                                </div>
+                                            </a>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <li class="t nlt" ms-class-1="last: !!ael.isLastNode" ms-if="ael.node_flag=='node_work_confirm'">
+                                <i class="h_line"></i>
+                                <!-- 展示 PM确认需求 -->
+                                <p class="dl_tit"><i></i><span ms-text="ael.node_name"></span></p>
+                                <div class="nbox">
+                                    <dl>
+                                        <dd>
+                                            <p class="ret"><span>业务PM审批{{ael.data.if_approve==1? "同意": "不同意"}}</span></p>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><i class="ic_bk2"></i>说明：</dt>
+                                        <dd>
+                                            <p class="htxt">{{ael.data.remarks}}</p>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <li class="t nlb" ms-class-1="last: !!ael.isLastNode" ms-if="ael.node_flag=='node_work_review'">
+                                <i class="h_line"></i>
+                                <!-- 展示 发起人确认 -->
+                                
+                                <div class="nbox">
+                                    <dl>
+                                        <dd>
+                                            <p class="ret"><span>需求方审批{{ael.data.if_approve==1? "同意": "不同意"}}</span></p>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><i class="ic_bk2"></i>说明：</dt>
+                                        <dd>
+                                            <p class="htxt">{{ael.data.remarks}}</p>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <li class="t" ms-class-1="last: !!ael.isLastNode" ms-if="ael.node_flag=='node_work_submit'">
+                                <i class="h_line"></i>
+                                <!-- 展示 验收的数据 -->
+                                <p class="dl_tit"><i></i><span ms-text="ael.node_name"></span></p>
+                                <div class="nbox">
+                                    <dl>
+                                        <dt><i class="ic_bk2"></i>说明：</dt>
+                                        <dd><span class="htxt" ms-text="ael.data.content"></span></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><a href="javascript:;"><i class="ic_file"></i><b>补充附件</b></a></dt>
+                                        <dd>
+                                            <a class="u_file no" ms-if="ael.data.files.length<2" ms-text="ael.data.files[0].fname" ms-attr-href="ael.data.files[0].fpath" ms-attr-download="ael.data.files[0].fname" target="_blank"></a>
+
+                                            <div class="files" ms-if="ael.data.files.length>1">
+                                                <a class="u_file no" ms-text="ael.data.files[0].fname" ms-attr-href="ael.data.files[0].fpath" ms-attr-download="ael.data.files[0].fname" target="_blank"></a>
+                                                <div class="float_file">
+                                                    <a class="u_file" ms-repeat="ael.data.files" ms-text="el.fname" ms-attr-href="el.fpath" ms-attr-download="el.fname" target="_blank"></a>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><a href=""><i class="ic_tm"></i><b>操作时间</b></a></dt>
+                                        <dd><span ms-text="ael.data.opt_time"></span></dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <li class="t nlt" ms-class-1="last: !!ael.isLastNode" ms-if="ael.node_flag=='node_work_check'&&ael.data.stype!=2">
+                                <i class="h_line"></i>
+                                <!-- 展示 过程验收 -->
+                                <p class="dl_tit"><i></i><span ms-text="ael.node_name"></span></p>
+                                <div class="nbox">
+                                    <dl>
+                                        <dd>
+                                            <p class="ret"><span>业务PM验收{{ael.data.result==1? "同意": "不同意"}}</span></p>
+                                        </dd>
+                                    </dl>
+                                    <dl >
+                                        <dt><i class="ic_cy"></i>付款金额：</dt>
+                                        <dd><span ms-text="ael.data.money"></span></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><i class="ic_bk2"></i>说明：</dt>
+                                        <dd><span class="htxt" ms-text="ael.data.money_desc"></span></dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <li class="t nlt" ms-class-1="last: !!ael.isLastNode" ms-if="ael.node_flag=='node_work_check'&&ael.data.stype==2">
+                                <i class="h_line"></i>
+                                <!-- 展示 。最后一次展示验收确认 -->
+                                <p class="dl_tit"><i></i><span ms-text="ael.node_name"></span></p>
+                                <div class="nbox">
+                                    <dl>
+                                        <dd>
+                                            <p class="ret"><span>业务PM验收{{ael.data.if_approve==1? "同意": "不同意"}}</span></p>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><i class="ic_cy"></i>付款金额：</dt>
+                                        <dd><span ms-text="ael.data.money"></span></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><i class="ic_zan"></i>综合评分：</dt>
+                                        <dd><a href="javascript:;">
+                                            <span class="total_score" ms-text="ael.data.scores.total_score"></span>
+                                            <div class="float_score">
+                                                <dl>
+                                                    <dt>方案创意：</dt>
+                                                    <dd>
+                                                        <span class="stars">
+                                                            <i ms-class="n:(1<=ael.data.scores.score1)"></i>
+                                                            <i ms-class="n:(2<=ael.data.scores.score1)"></i>
+                                                            <i ms-class="n:(3<=ael.data.scores.score1)"></i>
+                                                            <i ms-class="n:(4<=ael.data.scores.score1)"></i>
+                                                            <i ms-class="n:(5<=ael.data.scores.score1)"></i>
+                                                        </span>
+                                                    </dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>准时交付：</dt>
+                                                    <dd>
+                                                        <span class="stars">
+                                                            <i ms-class="n:(1<=ael.data.scores.score2)"></i>
+                                                            <i ms-class="n:(2<=ael.data.scores.score2)"></i>
+                                                            <i ms-class="n:(3<=ael.data.scores.score2)"></i>
+                                                            <i ms-class="n:(4<=ael.data.scores.score2)"></i>
+                                                            <i ms-class="n:(5<=ael.data.scores.score2)"></i>
+                                                        </span>
+                                                    </dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>服务态度：</dt>
+                                                    <dd>
+                                                        <span class="stars">
+                                                            <i ms-class="n:(1<=ael.data.scores.score3)"></i>
+                                                            <i ms-class="n:(2<=ael.data.scores.score3)"></i>
+                                                            <i ms-class="n:(3<=ael.data.scores.score3)"></i>
+                                                            <i ms-class="n:(4<=ael.data.scores.score3)"></i>
+                                                            <i ms-class="n:(5<=ael.data.scores.score3)"></i>
+                                                        </span>
+                                                    </dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>质量评定：</dt>
+                                                    <dd>
+                                                        <span class="stars">
+                                                            <i ms-class="n:(1<=ael.data.scores.score4)"></i>
+                                                            <i ms-class="n:(2<=ael.data.scores.score4)"></i>
+                                                            <i ms-class="n:(3<=ael.data.scores.score4)"></i>
+                                                            <i ms-class="n:(4<=ael.data.scores.score4)"></i>
+                                                            <i ms-class="n:(5<=ael.data.scores.score4)"></i>
+                                                        </span>
+                                                    </dd>
+                                                </dl>
+                                                <dl class="d_last">
+                                                    <dt>整体报价：</dt>
+                                                    <dd>
+                                                        <span class="stars">
+                                                            <i ms-class="n:(1<=ael.data.scores.score5)"></i>
+                                                            <i ms-class="n:(2<=ael.data.scores.score5)"></i>
+                                                            <i ms-class="n:(3<=ael.data.scores.score5)"></i>
+                                                            <i ms-class="n:(4<=ael.data.scores.score5)"></i>
+                                                            <i ms-class="n:(5<=ael.data.scores.score5)"></i>
+                                                        </span>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </a></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><i class="ic_bk2"></i>说明：</dt>
+                                        <dd><span class="htxt" ms-text="ael.data.money_desc"></span></dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <li class="t nlb" ms-class-1="last: !!ael.isLastNode" ms-if="ael.node_flag=='node_work_recheck'">
+                                <i class="h_line"></i>
+                                <!-- 展示 最终验收的二次确认 -->
+                                <div class="nbox">
+                                    <dl>
+                                        <dd>
+                                            <p class="ret"><span>需求方验收{{ael.data.if_approve==1? "同意": "不同意"}}</span></p>
+                                        </dd>
+                                    </dl>
+                                    <dl class="mo">
+                                        <dt><i class="ic_bk2"></i>说明：</dt>
+                                        <dd><span class="htxt" ms-text="ael.data.remarks"></span></dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <li class="t" ms-class-1="last: !!ael.isLastNode" ms-if="ael.node_flag=='node_work_save'&&!!ael.data">
+                                <i class="h_line"></i>
+                                <!-- 展示 归档 -->
+                                <p class="dl_tit"><i></i><span>归档</span></p>
+                                <div class="nbox">
+                                    <dl>
+                                        <dt>标签：</dt>
+                                        <dd>
+                                            <div class="biaoqian_wrap mtags_outer" ms-each-el="editData.gmd_tags.taglist">
+                                                <a href="javascript:void(0);"> <span ms-text="el"></span></a>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>首页推荐图：</dt>
+                                        <dd>
+                                            <div class="upBox">
+                                                <img ms-attr-src="editData.work_save.mpic" alt="indexImg">
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>作品说明：</dt>
+                                        <dd>
+                                            <p class="rdb">{{editData.work_save.mcontent | htmlwrap | html}}</p>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>图片：</dt>
+                                        <dd>
+                                            <div class="upFiles">
+                                                <div id="recommend_img_edit" ms-repeat="editData.work_save.images">
+                                                    <img alt="" ms-attr-src="el">
+                                                    <textarea placeholder="正文图片描述" name="desc" rows="4" cols="" ms-text="editData.work_save.descs[$index]" readonly="readonly"></textarea>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>源文件</dt>
+                                        <dd>
+                                            <dd>
+                                                <div class="upFiles" ms-if="!!editData.work_save.fname">
+                                                    <div id="recommend_img_edit" ms-repeat="editData.work_save.fname">
+                                                        <input class="name" type="text" name="" ms-attr-value="el" readonly="readonly" />
+                                                        <p class="rdb">{{editData.work_save.fdesc[$index] | htmlwrap | html}}</p>
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <li class="t nl" ms-class-1="last: !!ael.isLastNode" ms-if="ael.node_flag=='node_work_save_confirm'&&!!ael.data">
+                                <i class="h_line"></i>
+                                <!-- 展示 归档确认 -->
+                                <p class="dl_tit"><span><i></i>归档确认</span></p>
+                                <div class="nbox">
+                                    <dl>
+                                        <dt>归档结果：</dt>
+                                        <dd>
+                                            <p>{{ael.data.if_approve==1? "完成": "不同意"}}</p>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>说明：</dt>
+                                        <dd>
+                                            <p class="htxt">{{ael.data.remarks}}</p>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </li>
+                            <li class="t" ms-if="ael.node_flag=='node_work_close'" ms-class-1="last: !!ael.isLastNode" >
+                                <i class="h_line"></i>
+                                <!-- 特殊情况终止 -->
+                                <p class="dl_tit"><i></i><span ms-text="ael.node_name"></span></p>
+                                <div class="nbox">
+                                    <dl>
+                                        <dt><i class="ic_bk2"></i>说明：</dt>
+                                        <dd><p class="htxt">中止说明</p></dd>
+                                    </dl>
+                                    <dl>
+                                        <dt><a href="javascript:;"><i class="ic_tm"></i><b>中止时间</b></a></dt>
+                                        <dd><span ms-text="ael.opt_time"></span></dd>
+                                    </dl>
+                                </div>
+                            </li>
+                        </div>
+
+                        <!-- 一定存在，但是不一定显示 -->
+                        <!-- 填写 报价 -->
+                        <li class="t et" ms-if="showStates.baojia">
+                            <i class="h_line"></i>
+                            <p class="dl_tit"><i></i>报价</p>
+                            <div class="nedit">
+                                <dl>
+                                    <dt><i class="ic_tm"></i>承诺完成日期：</dt>
+                                    <dd>
+                                        <input type="text" ms-duplex="editData.baojia.time" id="calendar">
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic_cy"></i>价格：</dt>
+                                    <dd>
+                                        <input type="text" value="" ms-duplex="editData.baojia.price" />
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><i class="ic_bk2"></i>备注：</dt>
+                                    <dd>
+                                        <textarea name="" cols="" rows="4" ms-duplex="editData.baojia.remark"></textarea>
+                                    </dd>
+                                </dl>
+                                <dl >
+                                    <dt><i class="ic_file"></i>补充附件：</dt>
+                                    <dd>
+                                        <button id="baojia_upfile">上传</button>
+                                        <p class="t_tips">请上传工作时间安排和参考案例等，最大不超过5M。</p>
+                                        <div class="upFiles">
+                                            <div class="u_file u_fileb" ms-repeat="editData.baojia.flist"><a class="u_file" ms-text="el.fname" ms-attr-href="el.fpath" ms-attr-download="el.fname" target="_blank"></a><i class="dele" ms-click="events.delectFile('baojia', el.fpath, $index)"></i></div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl class="ruletxt d_last">
+                                    <dt></dt>
+                                    <dd>
+                                        <p>承诺条款：</p>
+                                        <ul class="listtxs">
+                                            <li>作为巨人网络的供应商伙伴，贵公司应坚决遵守并督促本公司员工遵守有关反商业贿赂的法律法规。</li>
+                                            <li>如您发现巨人网络的雇员有违法商业道德或法律法规的行为，请联系我们的反贿赂举报邮箱：ac@ztgame.com</li>
+                                            <li>我承诺，以上内容均为我公司真实信息。</li>
+                                        </ul>
+                                        <div class="radio_input_isdele">
+                                            <div class="radio" ms-click="events.selectRadio('isClause', null, null)"><i></i><span>已阅，同意</span></div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <!-- 编辑 需求分析 -->
+                        <li class="t et" ms-if="showStates.work_analysis">
+                            <i class="h_line"></i>
+                            <p class="dl_tit"><i></i>需求分析</p>
+                            <div class="nedit">
+                                <dl>
+                                    <dt>需求补充说明：</dt>
+                                    <dd>
+                                        <textarea name="" cols="" rows="4" ms-duplex="editData.work_analysis.content"></textarea>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>补充附件：</dt>
+                                    <dd>
+                                        <button id="analysis_upfile">上传</button>
+                                        <p class="t_tips">请上传最终详细工作安排，最大不超过5M。</p>
+                                        <div class="upFiles">
+                                            <div class="u_file u_fileb" ms-repeat="editData.work_analysis.flist">
+                                                <a class="u_file" ms-text="el.fname" ms-attr-href="el.fpath" ms-attr-download="el.fname" target="_blank"></a>
+                                                <i class="dele" ms-click="events.delectFile('work_analysis', el.fpath, $index)"></i>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>开票信息：</dt>
+                                    <dd>
+                                        <p>发票抬头：上海巨人统平网络科技有限公司</p>
+                                        <p>纳税人识别号：913101045947355133</p>
+                                        <p>发票类型：增值税普通发票</p>
+                                        <p>发票内容：制作费/宣传费</p>
+                                        <p>发票收件人：王兰兰 </p>
+                                        <p>联系方式：33979999-3961</p>
+                                        <p>公司地址：松江区中凯路988号</p>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <!-- 编辑 发起验收 -->
+                        <li class="t et" ms-if="showStates.work_submit">
+                            <i class="h_line"></i>
+                            <p class="dl_tit"><i></i>供应商发起验收</p>
+                            <div class="nedit">
+                                <dl class="sele">
+                                    <dt>验收类型：</dt>
+                                    <dd>
+                                        <div class="b select" st="1" ms-click="events.chkSelect(false)">
+                                            <p class="selt_v">
+                                                <b style="" ms-text="editData.work_submit.stype==1?'过程验收':'最终验收'"></b>
+                                            </p>
+                                            <i class="ic"></i>
+                                            <ul class="ul_sele" style="display:none">
+                                                <li class="op" ms-click="events.selected('work_submit', 1)">过程验收</li>
+                                                <li class="op" ms-click="events.selected('work_submit', 2)">最终验收</li>
+                                            </ul>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>验收说明：</dt>
+                                    <dd>
+                                        <textarea name="" cols="" rows="4" ms-duplex="editData.work_submit.content"></textarea>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>验收附件：</dt>
+                                    <dd>
+                                        <button id="yshou_upfile">上传</button>
+                                        <p class="t_tips">支持图片格式（jpg/gif/png）、视频格式（mp4）、音频格式（mp3），最大不超过5M。</p>
+                                        <div class="upFiles">
+                                            <div class="u_file u_fileb" ms-repeat="editData.work_submit.flist">
+                                                <a class="u_file" ms-text="el.fname" ms-attr-href="el.fpath" ms-attr-download="el.fname" target="_blank"></a>
+                                                <i class="dele" ms-click="events.delectFile('work_submit', el.fpath, $index)"></i>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <!-- 编辑 归档 -->
+                        <li class="t et" ms-if="showStates.work_save">
+                            <i class="h_line"></i>
+                            <p class="dl_tit"><i></i>交付归档</p>
+                            <div class="nedit">
+                                <dl>
+                                    <dt>添加标签：</dt>
+                                    <dd>
+                                        <div class="biaoqian_wrap mtags_outer" ms-each-el="editData.gmd_tags.taglist">
+                                            <a href="javascript:void(0);"> <span ms-text="el"></span><span class="close_icon" ms-click="events.removefunc('tag', el, $index)"></span></a>
+                                        </div>
+                                        <div ms-class-1="biaoqian_wrap" ms-class-2="on:showStates.moretag" ms-each-el="gmd_tags">
+                                            <a href="javascript:void(0);" ms-attr-gid="el.id" ms-click="events.addfunc('tag', el.tagname)"> <span ms-text="el.tagname"></span></a>
+                                        </div>
+                                        <a ms-class-1="down_jt" ms-class-2="up:showStates.moretag" href="javascript:void(0)" ms-click="events.addfunc('moretag')"></a>
+                                    </dd>
+                                </dl>
+                                <dl ms-visible="showStates.customtag">
+                                    <dt>自定义标签：</dt>
+                                    <dd>
+                                        <input type="text" class="lt" ms-duplex="temp" placeholder="添加标签，用空格分割">
+                                        <button ms-click="events.addfunc('customtag')">添加</button>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>首页推荐图：</dt>
+                                    <dd>
+                                        <div class="upBox" id="worksave_upfile_index">
+                                            <button ms-visible="editData.work_save.mpic==''">添加</button>
+                                            <img ms-visible="editData.work_save.mpic!=''" ms-attr-src="editData.work_save.mpic" alt="indexImg">
+                                        </div>
+                                        <p class="t_tips">推荐图尺寸为285*196px，图片大小不超过5MB，支持png/gif/jpg文件格式。</p>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>作品说明：</dt>
+                                    <dd>
+                                        <textarea name="" cols="" rows="4" ms-duplex="editData.work_save.mcontent"></textarea>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>选择图片：</dt>
+                                    <dd>
+                                        <button id="worksave_upfile_content">选择图片</button>
+                                        <p class="t_tips">支持jpg/gif/png格式，RGB模式，单张（宽 2560，大小&lt;5M），最多上传100张图片。</p>
+                                        <div class="upFiles">
+                                            <div id="recommend_img_edit" ms-repeat="editData.work_save.images">
+                                                <!-- <span class="resize_icon"></span> -->
+                                                <img alt="" ms-attr-src="el">
+                                                <textarea placeholder="正文图片描述" name="desc" rows="4" cols="" ms-text="editData.work_save.descs[$index]" ms-on-input="events.addfunc('contentImgInfo', el, $index)"></textarea>
+                                                <a href="javascript:void(0)" class="close_icon2" ms-click="events.removefunc('contentImg', el, $index)"></a>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>上传源文件</dt>
+                                    <dd>
+                                        <dd>
+                                            <div class="bigUpBtn" id="bigUpBtn">选择文件</div>
+                                            <p class="t_tips"><em class="error_tip">（最大10G）</em></p>
+                                            <div id="wu-upinfo" ms-visible="showStates.bigloader!=0">
+                                                <span class="name" ms-text="editData.work_save.name"></span>
+                                                <div class="upload_bar">
+                                                    <div class="inner" ms-attr-style="'width:'+editData.work_save.percent">
+                                                    </div>
+                                                </div>
+                                                <span class="percent" ms-text="editData.work_save.percent"></span>
+                                            </div>
+                                            <div class="upFiles">
+                                                <div id="recommend_img_edit" ms-repeat="editData.work_save.fname">
+                                                    <input class="name" type="text" name="" ms-attr-value="el" ms-on-input="events.addfunc('bigFilesName', el, $index)" />
+                                                    <textarea placeholder="正文图片描述" name="desc" rows="4" cols="" ms-text="editData.work_save.fdesc[$index]" ms-on-input="events.addfunc('bigFilesDesc', el, $index)"></textarea>
+                                                    <a href="javascript:void(0)" class="close_icon2" ms-click="events.removefunc('bigFiles', el, $index)"></a>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <!-- 承诺条款 -->
+                        <!-- <li class="t clause" ms-visible="showStates.submit && showStates.baojia">
+                            <dl>
+                                <dd>
+                                    <h4>承诺条款</h4>
+                                    <p class="txt">作为巨人网络的供应商伙伴，贵公司应坚决遵守并督促本公司员工遵守有关反商业贿赂的法律法规。
+                                        <br>如您发现巨人网络的雇员有违法商业道德或法律法规的行为，请联系我们的反贿赂举报邮箱：ac@ztgame.com
+                                        <br>我承诺，以上内容均为我公司真实信息。</p>
+                                    <div class="radio_input_isdele">
+                                        <div class="radio" ms-click="events.selectRadio('isClause', null, null)"><i></i><span>已阅，同意</span></div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </li> -->
+                    </div>
+                    <li class="btns" ms-visible="showStates.submit && (showStates.baojia||showStates.work_analysis||showStates.work_submit||showStates.work_save)">
+                        <button class="submitBtn" ms-click="events.submitFlow()">提交</button>
+                        <!-- <button class="backBtn">退回</button> -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <p style="padding: 10px 20px;font-size: 14px;color: #676767;text-align: center;">作为巨人网络的供应商伙伴，贵公司应坚决遵守并督促本公司员工遵守有关反商业贿赂的法律法规。
+            <br>如您发现巨人网络的雇员有违法商业道德或法律法规的行为，请联系我们的反贿赂举报邮箱：ac@ztgame.com
+            <br>
+            <br>我承诺，以上内容均为我公司真实信息。</p>
+    </div>
+</div>

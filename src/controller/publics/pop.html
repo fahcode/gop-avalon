@@ -1,0 +1,232 @@
+<div class="pf popbg png" ms-visible="showPop.dologinPop || showPop.registerPop || showPop.infoPop || showPop.forgetPasPop || showPop.submitTips || showPop.permisTips || showPop.applyTips || showPop.inputCodeTips" ms-click="pop.events.closeAllPop"></div>
+
+
+<div class="pf pop dologinPop" ms-visible="showPop.dologinPop">
+    <i class="ic snajiao"></i>
+    <div class="box">
+        <p class="tit">登陆</p>
+        <ul class="formView">
+            <li>
+                <p>
+                    <input type="text" placeholder="输入手机号" ms-duplex="forms.login.phone">
+                </p>
+            </li>
+            <li>
+                <p>
+                    <input type="password" placeholder="输入密码" ms-duplex="forms.login.password">
+                </p>
+                <a href="javascript:;" class="link" ms-click="pop.events.forgetPasPop">忘记密码？</a>
+            </li>
+            <li><a href="javascript:;" class="btn submitBtn" ms-click="events.setFrom('login')">登陆</a></li>
+        </ul>
+        <p class="txt">没有账号？<a href="javascript:;" ms-click="pop.events.openRegister">点此注册</a></p>
+    </div>
+</div>
+<div class="pf pop registerPop" ms-visible="showPop.registerPop">
+    <i class="ic snajiao"></i>
+    <div class="box">
+        <p class="tit">注册</p>
+        <form ms-widget="validation, $, vd_register">
+            <ul class="formView">
+                <li class="phone">
+                    <p><span>+86</span>
+                        <input type="text" placeholder="输入手机号" ms-duplex="forms.register.phone">
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <input type="password" placeholder="输入密码" ms-duplex="forms.register.password">
+                    </p>
+                </li>
+                <!-- <li class="getcode">
+                    <p>
+                        <input type="text" placeholder="输入图片验证码" ms-duplex="forms.register.imgCode">
+                    </p>
+                    <img ms-attr-src="captimg" ms-click="events.cg_captimg">
+                </li> -->
+                <!-- ms-click="events.getPhoneCode" -->
+                <li class="getcode">
+                    <p>
+                        <input type="text" placeholder="输入短信验证码" ms-duplex="forms.register.msgCode">
+                    </p>
+                    <a href="javascript:;" class="getPhoneCode" ms-click="events.popInputCode" id="ft_getCode_pop">获取验证码</a>
+                </li>
+                
+                <li><a href="javascript:;" class="btn submitBtn" ms-click="events.setFrom('register')">注册</a></li>
+            </ul>
+        </form>
+        <p class="txt">已有账号？<a href="javascript:;" ms-click="pop.events.openLoginPop">点此登陆</a></p>
+    </div>
+</div>
+<!-- 初始化信息 -->
+<div class="pf pop infoPop" ms-visible="showPop.infoPop">
+    <i class="ic snajiao"></i>
+    <div class="box">
+        <p class="tit">添加头像及昵称</p>
+        <ul class="formView">
+            <li class="havtit">
+                <dl>
+                    <dt>企业用户</dt>
+                    <dd>建议上传LOGO作为头像
+                        <br>昵称填写公司简称</dd>
+                </dl>
+                <dl>
+                    <dt>个人用户</dt>
+                    <dd>可自定义上传自己的头像
+                        <br>昵称填写自己的真实姓名</dd>
+                </dl>
+                <div class="uploadImgBtn" id="uploadImgBtn"><span class="ver-mid"></span><img src=""></div>
+                <span style="text-align: center;">上传图片尺寸为：200 x 200px </span>
+            </li>
+            <li class="havtit">
+                <span>昵称</span>
+                <p>
+                    <input type="text" placeholder="真实姓名 或 公司简称(不超过四个字符)" ms-duplex="forms.info.nickname">
+                </p>
+            </li>
+            <li><a href="javascript:;" class="btn submitBtn" ms-click="events.setFrom('info')">完成</a></li>
+        </ul>
+    </div>
+</div>
+<!-- 找回密码 -->
+<div class="pf pop forgetPasPop" ms-visible="showPop.forgetPasPop">
+    <i class="ic snajiao"></i>
+    <div class="box">
+        <p class="tit">找回密码</p>
+            <ul class="formView sep1" ms-visible="!forms.fgtpwd.sep2&&!forms.fgtpwd.sep3">
+                <li class="phone">
+                    <p><span>+86</span>
+                        <input type="text" placeholder="输入手机号" ms-duplex="forms.register.phone">
+                    </p>
+                </li>
+                <!-- <li class="getcode">
+                    <p>
+                        <input type="text" placeholder="输入图片验证码" ms-duplex="forms.register.imgCode">
+                    </p>
+                    <img ms-attr-src="captimg" ms-click="events.cg_captimg">
+                </li> -->
+                <li class="getcode">
+                    <p>
+                        <input type="text" placeholder="输入短信验证码" ms-duplex="forms.register.msgCode">
+                    </p>
+                    <a href="javascript:;" class="getPhoneCode" ms-click="events.popInputCode" id="ft_getCode_fg">获取验证码</a>
+                </li>
+                <li><a href="javascript:;" class="btn submitBtn" ms-click="events.forgetPas('sep1')">下一步</a></li>
+            </ul>
+            <ul class="formView sep2" ms-visible="forms.fgtpwd.sep2">
+                <li class="havtit">
+                    <span>新密码</span>
+                    <p>
+                        <input type="password" placeholder="新密码" ms-duplex="forms.fgtpwd.password1">
+                    </p>
+                </li>
+                <li class="havtit">
+                    <span>确认密码</span>
+                    <p>
+                        <input type="password" placeholder="确认密码" ms-duplex="forms.fgtpwd.password2">
+                    </p>
+                </li>
+                <li><a href="javascript:;" class="btn submitBtn" ms-click="events.forgetPas('sep2')">完成</a></li>
+            </ul>
+            <div class="sep sep3" ms-visible="forms.fgtpwd.sep3">
+                <div class="sub_tit">恭喜你，新密码设置成功</div>
+                <div class="sub_txt">请牢记新密码，<a href="javascript:;" ms-click="events.goHome">返回首页</a></div>
+            </div>
+    </div>
+</div>
+<!-- <div class="pf pop forgetPasPop" ms-visible="showPop.forgetPasPop">
+    <div class="box">
+        <p class="tit">找回密码</p>
+        <div class="steps step1">
+            <div class="s1">
+                <span>1</span>
+                <p>验证身份</p>
+            </div>
+            <div class="s2">
+                <span>2</span>
+                <p>设置新密码</p>
+            </div>
+            <div class="s3">
+                <span>3</span>
+                <p>完成</p>
+            </div>
+        </div>
+        <ul class="formView step1">
+            <li>
+                <p class="m">
+                    <span>手机号码</span>
+                    <input type="text" placeholder="输入手机号" ms-duplex="forms.login.phone">
+                </p>
+            </li>
+            <li class="getcode">
+                <p>
+                    <input type="text" placeholder="输入短信验证码">
+                </p>
+                <a href="javascript:;" class="getPhoneCode">获取验证码</a>
+            </li>
+            <li><a href="javascript:;" class="btn submitBtn" ms-click="events.setFrom('login')">下一步</a></li>
+        </ul>
+    </div>
+</div> -->
+
+<div class="pf pop loaderPop" id="loaderPop">
+    <img src="../../images/timg.gif" alt="loading">
+    <!-- <div class="ball-clip-rotate-pulse">
+        <div></div>
+        <div></div>
+    </div> -->
+</div>
+
+
+<!-- 提交申请弹窗 -->、
+<!-- 已经提交 -->
+<div class="pf popTips submitTips" ms-visible="showPop.submitTips">
+    <div class="pbox">
+        <p class="ptit">个人主页已提交审核</p>
+        <p class="ptxt">感谢入驻，我们会尽快反馈审核结果</p>
+        <div class="pa pbtns">
+            <a ms-attr-href="'#!/myinfo/'+userInfo.ubid" class="gobtn" target="_blank">去浏览个人主页</a>
+            <a href="javascript:;" class="cancelBtn" ms-click="pop.events.closeAllPop">暂不</a>
+        </div>
+    </div>
+</div>
+
+<!-- 没有资格 -->
+<div class="pf popTips permisTips" ms-visible="showPop.permisTips">
+    <div class="pbox">
+        <p class="ptit">你还没有申请项目的资质</p>
+        <p class="ptxt">你需要：去完善个人主页<br>提交并通过审核，然后再来申请项目</p>
+        <div class="pa pbtns">
+            <a ms-attr-href="'#!/edit'" class="gobtn" target="_blank">去完善个人主页</a>
+            <a href="javascript:;" class="cancelBtn" ms-click="pop.events.closeAllPop">暂不</a>
+        </div>
+    </div>
+</div>
+
+<!-- 已经提交 -->
+<div class="pf popTips applyTips" ms-visible="showPop.applyTips">
+    <div class="pbox">
+        <p class="ptit">你已提交申请意向</p>
+        <p class="ptxt">感谢申请，我们将尽快反馈结果</p>
+        <div class="pa pbtns">
+            <a ms-attr-href="'#!/myinfo/'+userInfo.ubid" class="gobtn" target="_blank">去浏览个人主页</a>
+            <a href="javascript:;" class="cancelBtn" ms-click="pop.events.closeAllPop">暂不</a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="pf popTips inputCodeTips" ms-visible="showPop.inputCodeTips">
+    <div class="pbox">
+        <p class="ptit">请输入验证码</p>
+        <div class="iptbox two">
+            <input typep="text" placeholder="输入验证码" ms-duplex="forms.register.imgCode">
+            <div class="fn"><img ms-attr-src="captimg" ms-click="events.cg_captimg"></div>
+        </div>
+        <div class="pa pbtns">
+            <a href="javascript:;" class="sureBtn" target="_blank" ms-click="events.getPhoneCode('ft_getCode')">确定</a>
+            <a href="javascript:;" class="cancelBtn" ms-click="pop.events.closeCodePop">关闭</a>
+        </div>
+    </div>
+</div>

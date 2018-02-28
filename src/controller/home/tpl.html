@@ -1,0 +1,122 @@
+<div class="page home" ms-attr-data-page="{{pageName}}" ms-controller="home">
+    <div class="col pjt_tabView">
+        <div class="box">
+            <div class="idx_tit">最新发布的外包项目</div>
+            <!-- 切换按钮 -->
+            <ul class="pjt_tabBtns" id="project_tab">
+                <!-- 默认的全部类型 -->
+                <li class="on"><a href="javascript:;" ms-click="events.changeTab(false)">全部<i></i></a></li>
+                <li ms-repeat="plist"><a href="javascript:;" ms-click="events.changeTab(el.id)">
+                    <span ms-text="el.cname"></span>
+                    <i></i>
+                </a></li>
+                <a href="#!/projects" class="link morelink" target="_blank" title="更多项目">更多项目</a>
+            </ul>
+            <!-- 切换内容 -->
+            <div class="cl pjt_tabCons">
+                <!-- 子内容 -->
+                <div class="pjt_cons on">
+                    <ul class="cl">
+                        <li ms-if="!nopj" ms-repeat="pjList">
+                            <a ms-attr-href="'#!/details/'+el.id" class="pa link" target="_blank"></a>
+                            <div class="idx_tab_ic">
+                                <img ms-attr-src="el.pic" ms-attr-alt="el.cate1">
+                                <i class="pa tp"></i>
+                                <p ms-text="el.cate1"></p>
+                            </div>
+                            <div class="idx_tab_state" ms-if="el.pstatus==0">招募中</div>
+                            <div class="idx_tab_state h" ms-if="el.pstatus==1">已结束</div>
+                            <p class="idx_tab_tit" ms-text="el.pname"></p>
+                            <p class="idx_tab_price" ms-text="el.budget"></p>
+                            <div class="idx_tab_tag" >
+                                <a href="javascript:;" ms-repeat-tag="el.ptags" ms-text="tag"></a>
+                            </div>
+                            <div class="idx_tab_info">
+                                <div class="l"><span ms-text="el.cate1"></span>
+                                <i>&middot;</i>
+                                <span ms-text="el.gname"></span></div>
+                                <span class="pa time" ms-text="el.pubdate"></span>
+                            </div>
+                        </li>
+                        <img src="images/waibao_df.jpg" class="waibao_df" ms-visible="nopj">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 分类 -->
+    <div class="col plist">
+        <div class="box">
+            <div class="idx_tit">巨人外包项目分类
+                <a href="#!/plist/" class="link morelink" target="_blank">详细分类</a>
+            </div>
+            <ul class="cl idx_st_ul">
+                <li ms-repeat="plist">
+                    <a ms-attr-href="'#!/plist/'+$index" target="_blank"></a>
+                    <img ms-attr-src="el.icon" alt="">
+                    <p class="ti" ms-text="el.cname"></p>
+                    <p class="tx" ms-text="el.desc"></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 如何成为巨人供应商? -->
+    <div class="col way">
+        <div class="box">
+            <div class="idx_tit">如何成为巨人供应商?
+                <a href="#!/guide" class="link morelink" target="_blank">查看详情</a>
+            </div>
+            <ul class="idx_way_ul">
+                <li class="i1">
+                    <p class="ti n1">01</p>
+                    <p class="tx">合作申请</p>
+                    <i class="ic"></i>
+                    <i class="hen_line"></i>
+                </li>
+                <li class="i2">
+                    <p class="ti n2">02</p>
+                    <p class="tx">初评审核</p>
+                    <i class="ic"></i>
+                    <i class="hen_line"></i>
+                </li>
+                <li class="i3">
+                    <p class="ti n3">03</p>
+                    <p class="tx">测试作品</p>
+                    <i class="ic"></i>
+                    <i class="hen_line"></i>
+                </li>
+                <li class="i4">
+                    <p class="ti n4">04</p>
+                    <p class="tx">入驻巨人供应商库</p>
+                    <i class="ic"></i>
+                    <i class="hen_line"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 加入我们 -->
+    <div class="col join" ms-visible="!userInfo.isLogin">
+        <div class="box">
+            <div class="idx_tit">加入我们</div>
+            <div class="idx_join_form" ms-controller="pop">
+                <ul>
+                    <li><input type="text" placeholder="输入手机号" ms-duplex="forms.register.phone"/></li>
+                    <li><input type="password" placeholder="输入密码" ms-duplex="forms.register.password"/></li>
+                    <!-- <li class="two">
+                        <input type="text" placeholder="输入验证码" ms-duplex="forms.register.imgCode">
+                        <div class="fn"><img ms-attr-src="captimg" ms-click="events.cg_captimg"></div>
+                    </li> -->
+                    <li class="two">
+                        <input type="text" placeholder="输入手机验证码" ms-duplex="forms.register.msgCode"/>
+                        <div class="fn">
+                            <a class="getPhoneCode" href="javascript:;" ms-click="events.popInputCode" id="ft_getCode">获取验证码</a>
+                        </div>
+                    </li>
+                </ul>
+                <!-- <div class="userTalk"><div class="talk" ms-class-1="gou:forms.register.isGou" ms-click="events.doGou"><i></i>我已阅读并同意《用户协议》</div></div> -->
+
+                <a href="javascript:;" class="btn submitBtn" ms-click="events.setFrom('register')">注册</a>
+            </div>
+        </div>
+    </div>
+</div>

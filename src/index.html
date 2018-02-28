@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="keywords" content="艾尔之光，巨人网络，艾尔，官方网站，游戏官网，3D，横版，漫画格斗,els，aierzhiguang,aier，热门，新游">
+    <meta name="description" content="韩国排名第一的漫画格斗网游，绚丽的动作效果、萌系的人设、漫画般3D场景，不可错过的二次元经典游戏！">
+    <meta name="fragment" content="!" />
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <title>艾尔之光 双倍返利瓜分1000万</title>
+    <!-- build:cssversions -->
+    <link rel="stylesheet" href="css/index.css">
+    <!-- endbuild -->
+    <script>
+    document.domain = "ztgame.com";
+    </script>
+    <script>
+        var isIE78 = navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0" || navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE7.0");
+        
+         if(!isIE78) {
+            ///插入js
+            var ma = document.createElement('script');
+            ma.type = 'text/javascript';
+            ma.async = true;
+            ma.src = './source/clipboard.min.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ma, s);
+        };
+        var _console = window.console || (function () {
+            var c ={}; 
+        　　 c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile= c.clear = c.exception = c.trace = c.assert = function(){};
+            return c;
+        })();
+    </script>
+</head>
+<body>
+    <div class="views">
+        <div class="header ">
+            <div class="box">
+                <div class="logo"><img src="images/logo.png" alt="logo"></div>
+                <div class="links">
+                    <a href="http://els.ztgame.com/index.shtml">官网首页</a>
+                    <a href="http://reg.ztgame.com/?source=els_site" target="_blank">快速注册</a>
+                    <a href="http://els.ztgame.com/download.shtml" target="_blank">游戏下载</a>
+                    <a href="http://bbs.els.ztgame.com" target="_blank">游戏论坛</a>
+                </div>
+                <!-- 通过on切换状态 -->
+                <ul class="userinfos">
+                    <li class="loginBtn">
+                        <i class="user_ic"></i>
+                        <p>登陆</p>
+                    </li>
+                    <li>
+                        <i class="user_ic"></i>
+                        <p id="username">用户名用户名</p>
+                        <a href="javascript:;" class="loginout">退出</a>
+                    </li>
+                    <!-- <li>
+                        <i class="stat_ic"></i>
+                        <p>可瓜分奖金人数：<span id="guafen_user_amount">0</span>人</p>
+                    </li>
+                    <li>
+                        <i class="gold_ic"></i>
+                        <p>奖金总额：<span id="guafen_money_amount">0</span>金币</p>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+        <div class="view">
+            <!-- 通过on切换状态 -->
+            <div class="info">
+                <div class="box">
+                    <div class="before_info">
+                        <p class="uactive txts">活跃用户<a href="javascript:;" class="loginBtn">登陆</a>获得专属邀请链接地址</p>
+                        <p class="uback txts">您的好友邀请您<a href="javascript:;" class="loginBtn">登陆</a>参与瓜分奖金活动</p>
+                        <a href="javascript:;" class="my_btn loginBtn" title="我要参加"></a>
+                    </div>
+                    <!-- 邀请invite， 老用户回归back -->
+                    <div class="after_info ">
+                        <div class="noqual_b">
+                            <p class="txts">您的等级条件不够！<br>请继续努力！</p>
+                        </div>
+                        
+                        <div class="invite_b">
+                            <div class="copyLink">
+                                <span>您的分享链接：</span>
+                                <input type="text" value="" id="shareLink">
+                                <button data-clipboard-target="#shareLink" class="copybtn" id="copybtn1">复制</button>
+                            </div>
+                            <div class="ai_info">
+                                <p>您的分享链接下已绑定回归用户：<span class="invitenum">0</span>个</p>
+                                <p>激活绑定的用户：<span class="bindingnum">0</span>个</p>
+                                <p>您的兑换任务：<span class="isok">未达成</span></p>
+                                <p><a href="javascript:;" class="getBtn">领取礼包</a></p>
+                            </div>
+                        </div>
+                        <div class="noback_b">
+                            <p class="txts">咦？您不属于回归用户~<br>请直接到活动页面参加活动吧！</p>
+                        </div>
+                        <div class="back_b_no">
+                            <p class="txts">您已经与朋友形成绑定关系，请登陆游戏30分钟，第二天10：00则自动激活绑定。</p>
+                        </div>
+                        <div class="back_b ">
+                            <div class="ai_info">
+                                <p>激活绑定关系：<span class="isbind">未达成</span></p>
+                                <p>您的兑换任务：<span class="isok">未达成</span></p>
+                                <p><a href="javascript:;" class="getBtn">领取礼包</a></p>
+                            </div>
+                        </div>
+                        <div class="noactive_b">
+                            <p class="txts">阿~您不是活跃用户，请找个活跃用户来邀请您吧！</p>
+                        </div>
+                        <div class="full_b">
+                            <p class="txts">啊喔！您来晚咯~<br>该玩家绑定的回归用户名额已满</p>
+                            <p class="tp">请再找位活跃用户邀请您吧！</p>
+                        </div>
+
+                        <a href="javascript:;" class="my_btn awardBtn" title="我的奖励"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="content">
+                    <dl>
+                        <dt>
+                            <p class="t1"></p>
+                        </dt>
+                        <dd>
+                            <p>2018年2月12日-2018年2月26日</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <p class="t2"></p>
+                        </dt>
+                        <dd>
+                            <p>2018年1月1日之后登录过游戏的账号为<span>活跃用户</span>。要求至少有一个角色等级达到99级。</p>
+                            <p>2018年1月1日之前登录过游戏的账号为<span>回归用户</span>。要求至少有一个角色等级达到70级。</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <p class="t3"></p>
+                        </dt>
+                        <dd>
+                            <p>1、活跃用户登录活动页面点击【我要参加】，可获得专属的邀请链接地址，将地址发送给回归用户。</p>
+                            <p>2、回归用户在邀请地址登录后，即可与活跃用户形成绑定关系，绑定后不可解除绑定关系。</p>
+                            <p>3、绑定形成后，回归用户需登录游戏30分钟，第二天10:00则自动激活绑定，视为成功召回。</p>
+                            <div>4、活跃用户成功召回1名回归用户，双方均可即可获得【<a class="l showlist">萌将先锋礼包
+                                <ul class="giftlist">
+                                    <li>中国皇室时装(7日)宝箱*1</li>
+                                    <li>皇室礼仪剑(7日)*1</li>
+                                    <li>技术之戒4种(7日)*1</li>
+                                    <li>贤者的卷轴(1日)*1</li>
+                                    <li>完全恢复药水*20</li>
+                                </ul>
+                            </a>】，最多可绑定3名。</div>
+                            <p class="h"><span class="t"></span>：所有激活绑定关系的玩家，完成兑换任务（活动期间在游戏内兑换10金币及以上），即可参与奖金瓜分，奖金数额为活动期间激活绑定关系的玩家兑换金币总额的两倍，上限为1000万金币。</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <p class="t4"></p>
+                        </dt>
+                        <dd>
+                            <p>1、一个账号只能获得一次游戏礼包，礼包有效期至2018年6月30日；</p>
+                            <p>2、活动期间，每天10:00更新前一天的数据；</p>
+                            <p>3、活动结束后统计获奖名单及奖金额，奖励预计15个工作日直接发放至您参与活动的游戏账号内。</p>
+                            <p>4、禁止刷奖，如发现有连号的账号则取消奖励。</p>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="pops">
+            <div class="popbg"></div>
+            <!-- 未达成条件 -->
+            <div class="pop ifPop">
+                <img src="images/pop_part.png" alt="" class="tipsImg">
+                <a href="javascript:;" class="closePop"></a>
+                <div class="inner">
+                    <div class="txts">您的等级条件不够！<br>请继续努力！</div>
+                </div>
+            </div>
+            <!-- 我的奖励 -->
+            <div class="pop awardPop">
+                <a href="javascript:;" class="closePop"></a>
+                <div class="inner">
+                    <div class="tit">您的奖励</div>
+                    <dl>
+                        <dt>萌将先锋礼包兑换码：</dt>
+                        <dd class="copybox">
+                            <span>尚未达成领取条件</span>
+                            <div class="copyCode">
+                                <input type="text" class="giftcode" id="giftcode">
+                                <button data-clipboard-target="#giftcode" class="copybtn" id="copybtn2">复制</button>
+                            </div>
+                        </dd>
+                        <dt>您可获得游戏金币：</dt>
+                        <dd><span id="money">尚未达成领取条件</span></dd>
+                    </dl>
+                    <div class="txts">
+                        <p>注意事项</p>
+                        <p>1、礼包有效期至2018年6月30日，<a href="http://els.ztgame.com/game/000-1319-00000-558493.shtml" target="_blank">兑换说明</a></p>
+                        <p>2、游戏金币将在活动结束后15个工作日内直接发放至您参加活动的游戏账号内。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 礼包 -->
+            <div class="pop giftPop">
+                <a href="javascript:;" class="closePop"></a>
+                <div class="inner">
+                    <div class="tit">恭喜你获得<span>萌将先锋礼包</span></div>
+                    <div class="stit">(礼包有效期至2018年6月30日，请在有效期之前登录游戏兑换)</div>
+                    <div class="code">
+                        <span>兑换码：</span>
+                        <input type="text" value="" id="getCode">
+                    </div>
+                    <div class="txt">如何兑换礼包？<a href="http://els.ztgame.com/game/000-1319-00000-558493.shtml" target="_blank">点击查看</a></div>
+                </div>
+            </div>
+            <div class="pop loginPop">
+                <a href="javascript:;" class="closePop"></a>
+                <iframe class="gLoginIframe" id="gLoginIframe" src="./api.php?a=login" scrolling="no" allowtransparency="true" frameborder="0" data-url="./api.php?a=login"></iframe>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="box">
+                <p>
+                    <span>上海巨人网络科技有限公司</span>
+                    <span>《网络文化经营许可证》</span>
+                    <span>编号：沪网文【2011】0494-054</span>
+                    <span>《增值电信业务经营许可证》许可证编号：沪B2-20050107</span>
+                </p>
+                <p>
+                    <span>互联网出版经营许可证</span>
+                    <span>新出网证（沪）字008号</span>
+                    <span>文网进字[2012]052号</span>
+                    <span>新出审字（2011）35号</span>
+                    <span>ISBN 978-7-89989-122-3</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="http://cdnsapi.ztgame.com/site/js/jquery-1.9.1.min.js"></script>
+    <script src="./source/jquery-zclip.js"></script>
+    <!-- build:minjs -->
+    <script src="js/all.js"></script>
+    <!-- endbuild -->
+    <!-- wxshareReplace -->
+    <script type="text/javascript">
+        //ZeroClipboard.config( { swfPath: "http://act.jl.ztgame.com/lining/images/ZeroClipboard.swf" } );
+        function loginBack() {
+            /*var t = (new Date).getTime(),
+                a = $("#gLoginIframe").attr("data-url") + "&tm=" + t;
+            $("#gLoginIframe").attr("src", a);*/
+            window.location.href = window.location.href;
+        };
+    </script>
+    <script type="text/javascript">
+    var _gadate = new Date().getTime();
+    var _maq = _maq || [];
+    var _gatype = 25; //游戏类型
+    _maq.push(['_setAccount', _gatype]);
+
+    (function() {
+        var ma = document.createElement('script');
+        ma.type = 'text/javascript';
+        ma.async = true;
+        ma.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'gaanalytics.ztgame.com/analytics.js?' + _gadate;
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ma, s);
+    })();
+    </script>
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_30032869'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30032869' type='text/javascript'%3E%3C/script%3E"));</script>
+</body>
+
+</html>

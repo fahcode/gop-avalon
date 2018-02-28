@@ -1,0 +1,74 @@
+<!-- 竞标列表 -->
+<div class="listcon myBidList" ms-controller="myBidList">
+    <h4>竞标列表</h4>
+    <div class="searchView">
+        <dl>
+            <dt>项目名称：</dt>
+            <dd class="bd_n">
+                <input type="text" placeholder="请输入单号或项目名称" ms-duplex="searchInfo.name">
+            </dd>
+        </dl>
+        <dl class="more">
+            <dt>创建时间：</dt>
+            <dd>
+                <div class="fl slc">
+                    <!-- <input type="text" id="myBidList_cd1"> -->
+                    <!-- <select name="" id="myBidList_cd1" ms-duplex="searchInfo.year"></select> -->
+                    <div class="select" st="1" ms-click="mylists.events.chkSelect(false)">
+                        <p class="selt_v" >{{times.dfYear +'年'}}</p>
+                        <ul class="ul_sele">
+                            <div class="hid_box">
+                            <li ms-repeat="times.year" ms-click="mylists.events.selectv(el, '年', 'bid')">{{el+'年'}}</li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fl slc">
+                    <!-- <input type="text" id="myBidList_cd2"> -->
+                    <!-- <select name="" id="myBidList_cd2" ms-duplex="searchInfo.month"></select> -->
+                    <div class="select" st="1" ms-click="im.chkSelect(false)">
+                        <p class="selt_v">{{times.dfMonth +'月'}}</p>
+                        <ul class="ul_sele">
+                            <div class="hid_box">
+                            <li ms-repeat="times.month" ms-click="mylists.events.selectv(el, '月', 'bid')">{{el + '月'}}</li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                <a class="searchBtn" href="javascript:;" ms-click="events.search()">搜索</a>
+            </dd>
+        </dl>
+    </div>
+    <div class="list_table">
+        <div class="cn">
+            <table>
+                <tbody>
+                    <tr class="hd">
+                        <th class="i1">单号</th>
+                        <th class="i2">项目名称</th>
+                        <th class="i3">发标时间</th>
+                        <th class="i4">收标时间</th>
+                        <th class="i5">巨人联系人</th>
+                        <th class="i6">状态</th>
+                        <!-- <th class="i7 last">竞标结果</th> -->
+                    </tr>
+                    <tr ms-repeat="plist">
+                        <td class="i1" ms-text="el.flow_order_id"></td>
+                        <td class="i2" ms-text="el.title"></td>
+                        <td class="i3" ms-text="el.pubtime"></td>
+                        <td class="i4" ms-text="el.coltime"></td>
+                        <td class="i5" ms-text="el.contact_realname"></td>
+                        <td class="i6"><a ms-class-0="button" ms-attr-href="#!/huibiao/{{el.flow_order_id}}" target="_blank" ms-text="el.opt" ms-class-1="la:el.opt=='回标'" ms-class-2="hu:(el.opt=='未中标'||el.opt=='已中止')"></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pageinfo" >
+            <a ms-show="pages>5" href="javascript:void(0)" ms-click="events.dopages('pre')" >&lt;&lt;</a>
+
+            <a ms-repeat-el="showpage" ms-class="cur:el==cur" href="javascript:void(0)" ms-text="1+el" ms-click="events.dopages(el)"></a>
+
+            <a ms-show="pages>5" href="javascript:void(0)" ms-click="events.dopages('next')">&gt;&gt;</a>
+        </div>
+    </div>
+</div>

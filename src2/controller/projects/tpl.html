@@ -1,0 +1,68 @@
+<div class="page projects" ms-attr-data-page="{{pageName}}" ms-controller="projects">
+    <div class="box cl">
+        <!-- 面包屑 -->
+        <div id="operate_notes">
+            <div class="notes_bar">
+                <a class="over" href="#!/home">首页</a>
+                <i class="will_tips"></i>
+                <a class="will_attain" href="javascript:void(0);">项目列表</a>
+            </div>
+        </div>
+        <!-- 最新发布的外包项目 -->
+        <div class="col pjt_tabView">
+            <!-- 切换按钮 -->
+            <ul class="pjt_tabBtns" id="project_tab">
+                <!-- 默认的全部类型 -->
+                <li class="on"><a href="javascript:;" ms-click="events.changeTab(false)">全部<i></i></a></li>
+                <li ms-repeat="plist">
+                    <a href="javascript:;" ms-click="events.changeTab(el.id, 1)">
+                        <span ms-text="el.cname"></span>
+                        <i></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- 切换内容 -->
+            <div class="cl pjt_tabCons">
+                <!-- 子内容 -->
+                <div class="pjt_cons on">
+                    <ul class="cl">
+                        <li ms-if="!nopj" ms-repeat="pjList">
+                            <a ms-attr-href="'#!/details/'+el.id" class="pa link" target="_blank"></a>
+                            <div class="idx_tab_ic">
+                                <img ms-attr-src="el.pic" ms-attr-alt="el.cate1">
+                                <i class="pa tp"></i>
+                                <p ms-text="el.cate1"></p>
+                            </div>
+                            <div class="idx_tab_state" ms-if="el.pstatus==0">招募中</div>
+                            <div class="idx_tab_state h" ms-if="el.pstatus==1">已结束</div>
+                            <p class="idx_tab_tit" ms-text="el.pname"></p>
+                            <p class="idx_tab_price" ms-text="el.budget"></p>
+                            <div class="idx_tab_tag">
+                                <a href="javascript:;" ms-repeat-tag="el.ptags" ms-text="tag"></a>
+                            </div>
+                            <div class="idx_tab_info">
+                                <div class="l"><span ms-text="el.cate1"></span>
+                                    <i>&middot;</i>
+                                    <span ms-text="el.gname"></span></div>
+                                <span class="pa time" ms-text="el.pubdate"></span>
+                            </div>
+                        </li>
+                        <img src="images/waibao_df.jpg" class="waibao_df" ms-visible="nopj">
+                    </ul>
+                </div>
+            </div>
+            <!-- 分页切换 -->
+            <div class="cl pjt_pageBtns" ms-visible="allpage!=0">
+                <a href="javascript:;" class="btn preBtn no" title="上一页" ms-class-2="no:(nowpage==1)" ms-click="events.prePage">上一页</a>
+                
+                <div class="numBtns">
+                    <span ms-repeat="pagelist" ms-click="events.goPage(el)" ms-class-2="on:(el==nowpage)">{{el}}</span>
+                    <span class="dot" ms-if="!isLastRow" >&#183;&#183;&#183;</span>
+                </div>
+                <a href="javascript:;" ms-if="!isLastRow" class="num lastpg" ms-click="events.goPage(allpage)" ms-text="allpage"></a>
+
+                <a href="javascript:;" class="btn nextBtn" title="下一页" ms-class-2="no:(nowpage==allpage)" ms-click="events.nextPage">下一页</a>
+            </div>
+        </div>
+    </div>
+</div>
